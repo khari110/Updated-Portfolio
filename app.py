@@ -4,7 +4,8 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import os
 
-app = Flask(__name__)
+# Purani line ko mita kar yeh likhen:
+app = Flask(__name__, template_folder='templates', static_folder='static')
 
 # --- CONFIGURATION ---
 
@@ -55,4 +56,5 @@ def submit_contact():
 
 if __name__ == '__main__':
     print("🚀 AI Portfolio Server is active (Direct-to-Inbox Mode)...")
+
     app.run(debug=True, port=5000)
