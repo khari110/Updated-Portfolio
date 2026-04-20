@@ -4,16 +4,15 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import os
 
-# Purani line ko mita kar yeh likhen:
+
 app = Flask(__name__, template_folder='templates', static_folder='static')
 
-# --- CONFIGURATION ---
 
-# 🚨 APP.PY MEIN YEH DICTIONARY AUR ROUTE REPLACE KAREIN 🚨
+#Configuration
 
 projects_data = {
     "home-decor": {
-        "title": "Home Decor Product",
+        "title": "Home Decor Product (Sales Campaign)",
         "business_overview": """Type: Online Home Decor Store
 Product: LED Wall Lamps
 Goal: Increase Online Sales""",
@@ -95,7 +94,7 @@ Total Leads: 60+ in one week.
 Conversion to members: 7-10 new members."""
     },
     "ecommerce-sales": {
-        "title": "E-Commerce Sales",
+        "title": "Online Skincare Store (Sales Campaign)",
         "business_overview": """<b>Type:</b> Online Skincare Store.
 <b>Product:</b> Acne Treatment Cream
 <b>Goal:</b> Increase Online Sales""",
@@ -135,7 +134,7 @@ ROAS: 3x-4.5x"""
     }
 }
 
-# Naya Dynamic Route (is mein <project_id> add kiya gaya hai)
+#Case Study Route
 @app.route('/case-study/<project_id>', methods=['GET'])
 def case_study(project_id):
     # Dictionary se project ka data uthayein
@@ -152,7 +151,7 @@ MY_EMAIL = "masahirshah@gmail.com"
 EMAIL_PASSWORD = "emtw klnr ncso cfzh"
 @app.route('/', methods=['GET'])
 def home():
-    # Serves the index.html from the /templates folder
+# connects with HTML from templates folder
     return render_template('index.html')
 
 
@@ -170,7 +169,7 @@ def submit_contact():
     try:
         msg = MIMEMultipart()
         msg['From'] = MY_EMAIL
-        msg['To'] = MY_EMAIL # Email aapko hi aayegi
+        msg['To'] = MY_EMAIL # Sends email to my email inbox
         msg['Subject'] = f"New Lead: Strategy Consultation ({client_email})"
 
         # Email body structure
