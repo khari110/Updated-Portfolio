@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpeg" href="{{ url_for('static', filename='masahir-abbas-favicon.jpeg') }}">
+    <title>{{ project.title }} - Case Study</title>
+    <style>
+        body { font-family: 'Inter', sans-serif; line-height: 1.6; color: #1F2937; padding: 40px 10%; background-color: #F9FAFB; }
+        h1 { color: #111827; }
+        h3 { color: #3B82F6; margin-top: 25px; margin-bottom: 10px;}
+        /* 🚨 BACK BUTTON (Bottom Centered) 🚨 */
+        .back-btn { 
+            display: flex; 
+            width: fit-content; /* Sirf text jitni width lega */
+            margin: 50px auto 10px auto; /* Button ko center mein kiya aur oopar 50px ka gap diya */
+            padding: 12px 25px; 
+            background-color: #111827; 
+            color: #F3F4F6; 
+            text-decoration: none; 
+            border-radius: 7px; 
+            border: 1px solid transparent;
+            font-weight: bold;  
+            transition: all 0.2s ease; 
+        }
+        .back-btn:hover { color: #111827;background-color: #ffffff; border-color: #111827; border-width: 1px; border-style: solid; }
+        .content { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        /* 🚨 IS BLOCK KO ADD KAREIN YA UPDATE KAREIN 🚨 */
+        .content p { 
+            white-space: pre-wrap; /* Yeh property line breaks ko enable karti hai */
+            margin-bottom: 15px;
+        }
+ </style>
+</head>
+<body>
+
+    
+    <div class="content">
+        <h1>{{ project.title }}</h1>
+        
+        {% if project.overview %}
+        <p><strong>Overview:</strong> {{ project.overview }}</p>
+        {% endif %}
+
+        {% if project.business_overview %}
+        <h3>Business Overview</h3>
+        <p>{{ project.business_overview | safe}}</p>
+        {% endif %}
+        
+        {% if project.problem %}
+        <h3>Problem Identified</h3>
+        <p>{{ project.problem | safe}}</p>
+        {% endif %}
+
+        {% if project.target %}
+        <h3>Target</h3>
+        <p>{{ project.target | safe}}</p>
+        {% endif %}
+
+        {% if project.strategy %}
+        <h3>Strategy</h3>
+        <p>{{ project.strategy | safe }}</p>
+        {% endif %}
+
+        {% if project.audience %}
+        <h3>Audience Targeting</h3>
+        <p>{{ project.audience | safe}}</p>
+        {% endif %}
+
+        {% if project.ad_copy %}
+        <h3>Ad Copy</h3>
+        <p>{{ project.ad_copy | safe }}</p> 
+        {% endif %}
+
+        {% if project.creative %}
+        <h3>Creative Idea</h3>
+        <p>{{ project.creative | safe}}</p>
+        {% endif %}
+
+        {% if project.budget %}
+        <h3>Budget Strategy</h3>
+        <p>{{ project.budget | safe}}</p>
+        {% endif %}
+
+        {% if project.approach %}
+        <h3>My Approach & Tools Used</h3>
+        <p>{{ project.approach | safe}}</p>
+        {% endif %}
+
+        {% if project.results %}
+        <h3>Results</h3>
+        <p><strong>{{ project.results }}</strong></p>
+        {% endif %}
+    
+    <a href="{{ url_for('home') }}" class="back-btn">&larr; Back to Portfolio</a>
+
+    </div>
+
+</body>
+</html>
