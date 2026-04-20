@@ -9,6 +9,144 @@ app = Flask(__name__, template_folder='templates', static_folder='static')
 
 # --- CONFIGURATION ---
 
+# 🚨 APP.PY MEIN YEH DICTIONARY AUR ROUTE REPLACE KAREIN 🚨
+
+projects_data = {
+    "home-decor": {
+        "title": "Home Decor Product",
+        "business_overview": """Type: Online Home Decor Store
+Product: LED Wall Lamps
+Goal: Increase Online Sales""",
+        "problem": """Low Product Awareness
+No Structure Ad funnel
+Poor engagement on existing posts""",
+        "strategy":"""<b>Funnel:</b>
+Cold Audience > Product Video Ad
+Retarget > View Content, Engagers, Add to Cart
+
+<b>Core Idea:</b>
+Sell <b>aesthetic transformation</b>, not just the product
+'People don't buy lamps, they buy the vibe it creates in their home.'""",
+        "audience": """<b>Cold Audience:</b>
+Age: 20-36
+Interests: Home Decor, Interior Design, Aesthetics, IKEA, home styling
+<b>Warm Audience:</b>
+Website Visitors (last 30 days)
+Video Viewers with 50%+ watch-time
+Instagram Engagers (last 30 days)""",
+        "ad_copy": """<b>Headline:</b>
+Transform Your Room Today!
+<b>Primary Text:</b>
+Tired of dull walls? Transform your room in seconds.
+Modern LED wall lamps that instantly upgrade your space.
+
+Limited  stock available - Order now and light up your life!""",
+        "creative": """<b>Best format:</b>
+Short video (7-15 seconds)
+<b>Visual Concept:</b>
+Before (Boring wall)
+After (lamp ON, aesthetic lighting, cozy vibe)
+Text overlay:
+Before > After
+Instant Room Upgrade """,
+        "budget": """<b>Total Budget:</b>
+10,000 PKR
+<b>Split:</b>
+Cold Traffic: 70%
+Retargeting: 30%
+<b>Optimization Goal:</b>
+Conversions (Purchases)""",
+        "results": """CTR: 2-4%
+CPC: 15-30 PKR
+Conversion Rate: 3-6%
+ROAS: 2.5x-4x"""
+    },
+    "customer-churn": {
+        "title": "Customer Churn Prediction",
+        "business_overview": "Created a Machine Learning model to predict Customer Churn.",
+        "target": "Identify which cusotmers are going to leave or withdraw.",
+        "approach": "Used Data Cleaning, Feature Engineering and Data Visualisation for EDA and trained ML Model using Logistic Regression.",
+        "results": "Predicted Customer Churn with 82.5% accuracy"
+    },
+    "gym-lead": {
+        "title": "Gym Lead Generation Campaign",
+        "business_overview": "Offered 1 Week Free Trial to attract members to a local Gym and increase Monthly Memberships.",
+        "problem": "Gym has no consistent leads and they have no structured funnel.",
+        "strategy": """Funnel: Cold audience > Lead form > WhatsApp follow-up.
+Approach: Strong offer (free trial), Local trageting""",
+        "audience": """Location: 5-8 km radius
+Age: 18-40
+Interests: Fitness, Health, weight loss, BodyBuilding""",
+        "ad_copy": """<b>Headline:</b>
+Start your Fitness Journey Today        
+
+<b>Primary Text:</b>
+Want to get fit but don't know where to start?
+Try our gym FREE for 7 days.
+No commitment, No pressure. Just results!
+Limited slots available this week. Sign up now!""",
+        "creative": """Gym Interior + people working out.
+Text overlay: 7-Day Free Trial""",
+        "budget": """Daily Budget: 1000 PKR.
+Duration: 7 days.
+Total: 6000 PKR.""",
+        "results": """Cost per Lead: 80-140 PKR.
+Total Leads: 60+ in one week.
+Conversion to members: 7-10 new members."""
+    },
+    "ecommerce-sales": {
+        "title": "E-Commerce Sales",
+        "business_overview": """<b>Type:</b> Online Skincare Store.
+<b>Product:</b> Acne Treatment Cream
+<b>Goal:</b> Increase Online Sales""",
+        "problem": """Low ROAS
+No Retargeting strategy
+Weak Product Awareness""",
+        "strategy": """<b>Funnel:</b>
+Cold Traffic > Product Page
+Retarget > View Content
+Retarget > Add to Cart""",
+        "audience": """<b>Cold Audience:</b>
+Age: 18-35
+Interests: Skincare, Acne Treatment, Beauty Products
+
+<b>Warm Audience:</b>
+Website Visitors (last 30 days)
+Instagram Engagers (last 30 days)""",
+        "ad_copy": """<b>Headline:</b>
+Clear Skin Starts Here!
+
+<b>Primary Text:</b>
+Struggling with acne that just don't go away?
+Our dermatologist-tested formula helps reduce acne and improve skin clarity.
+
+Try it Risk-free and See the Difference""",
+        "creative": """Product close-up
+Short demo (how to apply)""",
+        "budget": """<b>Total Budget:</b>
+20,000 PKR
+<b>Split:</b>
+Cold: 70%
+Retarget: 30%""",
+        "results": """CTR: 2-5%
+CPC: 15-35 PKR
+Conversion Rate: 3-7%
+ROAS: 3x-4.5x"""
+    }
+}
+
+# Naya Dynamic Route (is mein <project_id> add kiya gaya hai)
+@app.route('/case-study/<project_id>', methods=['GET'])
+def case_study(project_id):
+    # Dictionary se project ka data uthayein
+    project = projects_data.get(project_id)
+    
+    # Agar project URL theek hai toh page dikhayein, warna 404 Not Found
+    if project:
+        return render_template('case_study.html', project=project)
+    return "Project Not Found", 404
+
+
 #Receiving Email and its App Password 
 MY_EMAIL = "masahirshah@gmail.com"  
 EMAIL_PASSWORD = "emtw klnr ncso cfzh"
@@ -16,6 +154,7 @@ EMAIL_PASSWORD = "emtw klnr ncso cfzh"
 def home():
     # Serves the index.html from the /templates folder
     return render_template('index.html')
+
 
 @app.route('/api/contact', methods=['POST'])
 def submit_contact():
