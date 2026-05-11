@@ -193,6 +193,6 @@ def submit_contact():
         return jsonify({"status": "error", "message": "Failed! Please try again later."}), 500
 
 if __name__ == '__main__':
-    print("🚀 AI Portfolio Server is active (Direct-to-Inbox Mode)...")
+    print("AI Portfolio Server is active...")
 
     app.run(debug=True, port=5000)
