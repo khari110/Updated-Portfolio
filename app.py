@@ -192,6 +192,12 @@ def submit_contact():
         print(f"SMTP Error: {e}")
         return jsonify({"status": "error", "message": "Failed! Please try again later."}), 500
 
+def open_portfolio():
+    import webbrowser
+    webbrowser.open("http://127.0.0.1:5000")
+
+open_portfolio()
+
 if __name__ == '__main__':
     print("AI Portfolio Server is active...")
 
