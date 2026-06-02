@@ -271,8 +271,51 @@
         #certifications .slider-btn { background: #374151; border: 1px solid rgba(255,255,255,0.1); }
         #certifications .slider-btn:hover { background: var(--primary-color); }
 
-        /* TESTIMONIALS */
-        #testimonials .grid-container { grid-template-columns: minmax(300px, 800px); } 
+
+        /* 🚨 CLIENT IMAGE CSS 🚨 */
+        .client-img {
+            width: 60px; /* Tasweer ki chaurai */
+            height: 60px; /* Tasweer ki lambai */
+            border-radius: 50%; /* Tasweer ko mukammal gol (round) karne ke liye */
+            object-fit: cover; /* Agar tasweer square na ho toh usay stretch hone se bachata hai */
+            border: 2px solid #3B82F6; /* (Optional) Blue color ka khoobsoorat border */
+            flex-shrink: 0; /* Tasweer ko chota hone se rokta hai */
+        }
+        /*Testimonials*/
+        /* 🚨 AUTO-SCROLL TESTIMONIALS CSS (Half-Slided Layout) 🚨 */
+        .testimonial-slider-wrapper { 
+            position: relative; 
+            max-width: 100%; /* 👈 800px ki jagah 100% kar diya taake sides par jagah bane */
+            margin: 0 auto; 
+            overflow: hidden; 
+        }
+        
+        .testimonial-slider-track { 
+            display: flex; 
+            gap: 30px; 
+            overflow-x: auto; 
+            scroll-snap-type: x mandatory; 
+            -ms-overflow-style: none; 
+            scrollbar-width: none; 
+            padding: 20px 0; 
+        }
+        
+        .testimonial-slider-track::-webkit-scrollbar { display: none; } 
+        
+        .testimonial-slider-track .testimonial-card { 
+            flex: 0 0 85%; /* 👈 Mobile par card 85% screen lega */
+            max-width: 700px; /* 👈 Desktop par maximum 700px tak phelay ga */
+            scroll-snap-align: center; /* 👈 Yeh property card ko exact center mein lock karegi */
+            box-sizing: border-box; 
+            opacity: 0.5; /* 👈 (Optional) Inactive cards thore dim (halke) dikhenge */
+            transition: opacity 0.4s ease;
+        }
+
+        /* Jo card screen ke center mein hoga (active hoga), wo mukammal roshan ho jayega */
+        .testimonial-slider-track .testimonial-card:hover,
+        .testimonial-slider-track .testimonial-card:focus-within {
+            opacity: 1;
+        }
         .testimonial-card { background-color: white; padding: 40px 50px; border-radius: 16px; box-shadow: 0 10px 30px -5px rgba(0,0,0,0.08); }
         .testimonial-card p { font-size: 1.25rem; font-style: italic; color: #4B5563; line-height: 1.8; }
         .client-info { display: flex; align-items: center; margin-top: 30px; }
@@ -693,17 +736,39 @@
     </section>
     
     <section id="testimonials">
-        <h2>Client Testimonials - Hear From Those I’ve Worked With</h2>
-        <div class="grid-container">
-            <div class="testimonial-card">
-                <p>"The AI-driven approach completely transformed our marketing ROI."</p>
-                <div class="client-info">
-                    <div class="client-img-placeholder"></div>
-                    <div>
-                        <h4 style="margin: 0; color: var(--secondary-color);">Sarah J.</h4>
-                        <a href="#" style="font-size: 0.9rem; color: var(--primary-color);">techstartup.com</a>
+        <h2>Industry Feedback on performance Analysis</h2>
+        
+        <div class="testimonial-slider-wrapper">
+            <div class="testimonial-slider-track" id="testSlider">
+                
+                <div class="testimonial-card">
+                    <p>"Very Well Observstion. Thankyou Masahir Abbas"</p>
+                    
+                    <div class="client-info" style="display: flex; align-items: center; gap: 15px; margin-top: 20px;">
+                        
+                        <img src="{{ url_for('static', filename='ny212_pizza_img.png') }}" alt="Client" class="client-img">
+                        
+                        <div>
+                            <h3 style="margin: 0; color: var(--secondary-color);">Syed Kamal</h3>
+                            <h5 style="margin: 0; color: var(--secondary-color);">Marketing Manager at NY212 Pizza</h5>
+                        </div>
                     </div>
                 </div>
+
+                <div class="testimonial-card">
+                    <p>"Very well Analysis Masahir Abbas. I appreciate your suggestions"</p>
+                    
+                    <div class="client-info" style="display: flex; align-items: center; gap: 15px; margin-top: 20px;">
+                        
+                        <img src="{{ url_for('static', filename='sevva_restaurant.jpg') }}" alt="Client" class="client-img">
+                        
+                        <div>
+                            <h3 style="margin: 0; color: var(--secondary-color);">Zunair Ishfaque</h3>
+                            <h5 style="margin: 0; color: var(--secondary-color);">Social Media Manager at Sevva Restaurant</h5>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -1026,6 +1091,62 @@
             }
         }
         
+        
+
+        // --- TESTIMONIAL AUTO-SLIDER (Half-Slided Layout) ---
+        const testSlider = document.getElementById('testSlider');
+        const origTestCards = Array.from(testSlider.children);
+        
+        // 🚨 Cards ko 4 dafa clone kiya taake left/right sides kabhi khali na rahein aur loop chalta rahay
+        for(let i=0; i<4; i++){
+            origTestCards.forEach(card => {
+                const clone = card.cloneNode(true);
+                testSlider.appendChild(clone);
+            });
+        }
+
+        // 🚨 Page load hone par chupke se center wale cards par scroll kar dein, taake shuru mein left side khali na lagay
+        setTimeout(() => {
+            const cardWidth = testSlider.querySelector('.testimonial-card').clientWidth + 30;
+            testSlider.scrollLeft = cardWidth * origTestCards.length;
+            
+            // Center wale card ko full highlight karne ka chota sa logic
+            updateCenterCardOpacity();
+        }, 100);
+
+        setInterval(() => {
+            const cardWidth = testSlider.querySelector('.testimonial-card').clientWidth + 30; 
+            const resetPoint = (origTestCards.length * 3) * cardWidth;
+
+            // Agar scroll boht aagay chala jaye, toh wapis peechay lay aao (bina jhatke ke)
+            if (testSlider.scrollLeft >= resetPoint) {
+                testSlider.style.scrollBehavior = 'auto';
+                testSlider.scrollLeft -= (origTestCards.length * cardWidth);
+                testSlider.offsetHeight; // force reflow
+            }
+            
+            // Aglay card par smooth scroll karein
+            testSlider.style.scrollBehavior = 'smooth';
+            testSlider.scrollBy({ left: cardWidth, behavior: 'smooth' });
+            
+            setTimeout(updateCenterCardOpacity, 400); // Scrolling ke baad opacity theek kare
+        }, 3500); // 3.5 seconds baad khud aglay card par jayega
+
+        // 🚨 Jo card center mein hai usko 100% show karne wala function
+        function updateCenterCardOpacity() {
+            const cards = testSlider.querySelectorAll('.testimonial-card');
+            const sliderCenter = testSlider.scrollLeft + (testSlider.clientWidth / 2);
+            
+            cards.forEach(card => {
+                const cardCenter = card.offsetLeft + (card.clientWidth / 2);
+                if (Math.abs(sliderCenter - cardCenter) < 100) {
+                    card.style.opacity = '1';
+                } else {
+                    card.style.opacity = '0.5';
+                }
+            });
+        }
+        testSlider.addEventListener('scroll', updateCenterCardOpacity);
     </script>
 </body>
 </html>
