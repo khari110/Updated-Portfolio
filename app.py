@@ -147,8 +147,24 @@ def case_study(project_id):
 
 
 #Receiving Email and its App Password 
-MY_EMAIL = "masahirshah@gmail.com"  
-EMAIL_PASSWORD = "emtw klnr ncso cfzh"
+import os
+
+MY_EMAIL = "masahirshah@gmail.com"
+EMAIL_PASSWORD = None
+
+# Logic to test for the text file first (Local Development)
+try:
+    with open("password.txt", "r") as file:
+        # .strip() is crucial to remove any hidden newlines or spaces
+        EMAIL_PASSWORD = file.read().strip()
+except FileNotFoundError:
+    # Counterpoint fallback: If the file doesn't exist (e.g., on Vercel), 
+    # look for the environment variable instead.
+    EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")
+
+# Add a safety check so it doesn't crash silently later
+if not EMAIL_PASSWORD:
+    print("CRITICAL WARNING: Email password could not be found!")
 @app.route('/', methods=['GET'])
 def home():
 # connects with HTML from templates folder
@@ -173,7 +189,7 @@ def submit_contact():
         msg['Subject'] = f"New Lead: Strategy Consultation ({client_email})"
 
         # Email body structure
-        body = f"A new prospect has reached out via your portfolio.\n\nProspect Email: {client_email}\n\nTheir Problem/Requirement:\n{client_problem}"
+        body = f"A new prospect has reached out via your portfolio.\n\nProspect Email: {client_email}\n\nDetails: \n{client_problem}"
         msg.attach(MIMEText(body, 'plain'))
 
         # Connect to Gmail SMTP
@@ -190,7 +206,8 @@ def submit_contact():
 
     except Exception as e:
         print(f"SMTP Error: {e}")
-        return jsonify({"status": "error", "message": "Failed! Please try again later."}), 500
+        # Passing the exact error 'e' to the frontend for debugging
+        return jsonify({"status": "error", "message": f"Debug Error: {str(e)}"}), 500
 
 def open_portfolio():
     import webbrowser
