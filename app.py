@@ -62,10 +62,10 @@ ROAS: 2.5x-4x"""
     },
     "customer-churn": {
         "title": "Customer Churn Prediction",
-        "business_overview": "Created a Machine Learning model to predict Customer Churn.",
+        "Overview": "Created a Machine Learning model to predict Customer Churn.",
         "target": "Identify which cusotmers are going to leave or withdraw.",
         "approach": "Used Data Cleaning, Feature Engineering and Data Visualisation for EDA and trained ML Model using Logistic Regression.",
-        "results": "Predicted Customer Churn with 82.5% accuracy"
+        "results": "Predicted Customer Churn with <b>82.5% Accuracy.</b>"
     },
     "gym-lead": {
         "title": "Gym Lead Generation Campaign",
@@ -94,43 +94,15 @@ Total Leads: 60+ in one week.
 Conversion to members: 7-10 new members."""
     },
     "ecommerce-sales": {
-        "title": "Online Skincare Store (Sales Campaign)",
-        "business_overview": """<b>Type:</b> Online Skincare Store.
-<b>Product:</b> Acne Treatment Cream
-<b>Goal:</b> Increase Online Sales""",
-        "problem": """Low ROAS
-No Retargeting strategy
-Weak Product Awareness""",
-        "strategy": """<b>Funnel:</b>
-Cold Traffic > Product Page
-Retarget > View Content
-Retarget > Add to Cart""",
-        "audience": """<b>Cold Audience:</b>
-Age: 18-35
-Interests: Skincare, Acne Treatment, Beauty Products
+        "title": "Meta Ad Creative Analyzer",
+        "business_overview": """<b>AI-Powered Ad Creative Analyzer</b> is a decision-support tool designed to help advertisers evaluate Meta ad creatives before launching them. It analyzes key creative elements, generates an overall score, and provides actionable suggestions to help determine whether a creative is ready for testing or needs refinement.""",
+        "problem": """Advertisers and media buyers routinely burn budget testing creatives doomed to fail due to subjective guesswork. Without a systematic pre-launch audit framework, weak hooks, ambiguous messaging or cluttered visual hierarchies leak performance early, resulting in low CTRs and poor engagement.""",
+        "approach": """<b>Diagnostic Scoring Rubric:</b> Structured a multi-point evaluation system grading visual stopping power, message congruence, value proposition clarity, and call-to-action strength.
 
-<b>Warm Audience:</b>
-Website Visitors (last 30 days)
-Instagram Engagers (last 30 days)""",
-        "ad_copy": """<b>Headline:</b>
-Clear Skin Starts Here!
+<b>AI & Engineering Stack:</b> Leveraged multimodal AI models and Python workflows to parse image composition, text overlays, and primary ad copy against conversion-focused Meta ad benchmarks.
 
-<b>Primary Text:</b>
-Struggling with acne that just don't go away?
-Our dermatologist-tested formula helps reduce acne and improve skin clarity.
-
-Try it Risk-free and See the Difference""",
-        "creative": """Product close-up
-Short demo (how to apply)""",
-        "budget": """<b>Total Budget:</b>
-20,000 PKR
-<b>Split:</b>
-Cold: 70%
-Retarget: 30%""",
-        "results": """CTR: 2-5%
-CPC: 15-35 PKR
-Conversion Rate: 3-7%
-ROAS: 3x-4.5x"""
+<b>Prescriptive Feedback Engine:</b> Programmed the system to generate prescriptive fixes alongside the numerical score, showing media buyers exactly which elements to tweak to reach launch viability.""",
+        "results": """The result is a practical <b>AI-powered decision-support system</b> that gives advertisers a structured way to assess creatives before launch. Rather than replacing human judgment, it helps make the creative review process more consistent, data-informed, and actionable."""
     }
 }
 
@@ -147,7 +119,6 @@ def case_study(project_id):
 
 
 #Receiving Email and its App Password 
-import os
 
 MY_EMAIL = "masahirshah@gmail.com"
 EMAIL_PASSWORD = None
@@ -164,7 +135,7 @@ except FileNotFoundError:
 
 # Add a safety check so it doesn't crash silently later
 if not EMAIL_PASSWORD:
-    print("CRITICAL WARNING: Email password could not be found!")
+    print("Email password could not be found!")
 @app.route('/', methods=['GET'])
 def home():
 # connects with HTML from templates folder
