@@ -6,10 +6,8 @@
     <link rel="icon" type="image/jpeg" href="{{ url_for('static', filename='masahir-abbas-favicon.jpeg') }}">
     <title>{{ project.title }} - Case Study</title>
     <style>
-        /* 🚨 NAYI LAYOUT CSS 🚨 */
-        /* 🚨 BODY CSS (Main page jaisi styling aur system-ui font) 🚨 */
         body { 
-            font-family: 'Inter', system-ui, -apple-system, sans-serif; /* 👈 Main difference yahan tha */
+            font-family: 'Inter', system-ui, -apple-system, sans-serif; 
             line-height: 1.6; 
             color: #1F2937; 
             margin: 0; 
@@ -58,7 +56,7 @@
             background-color: #FFFFFF; 
             padding: 60px 20px 30px 20px; 
             max-width: 1200px; 
-            margin: 0 auto; /* 🚨 YEH LINE POORE TEXT AUR BUTTON KO CENTER KAREGI 🚨 */
+            margin: 0 auto; 
         }
         
         h3 { 
@@ -68,10 +66,8 @@
         .content-area p { 
             white-space: pre-wrap; 
             margin-bottom: 15px;
-            font-size: 1.25rem; /* Text thora bara kiya hai tasweer jaisa dikhane ke liye */
+            font-size: 1.25rem; 
         }
-
-        /* 🚨 Yeh naya rule ensures karega ke box ke andar jo pehli heading ho, wo extra top margin na le */
         .content-area > :first-child {
             margin-top: 0;
         }
@@ -89,13 +85,11 @@
             transition: all 0.2s ease; 
         }
         .back-btn:hover { color: #111827;background-color: #ffffff; border-color: #111827; border-width: 1px; border-style: solid; }
-        /* 🚨 IS BLOCK KO ADD KAREIN YA UPDATE KAREIN 🚨 */
+       
         .content p { 
             white-space: pre-wrap; /* Yeh property line breaks ko enable karti hai */
             margin-bottom: 15px;
         }
-
-        /* 🚨 HEADER BANNER PADDING UPDATE 🚨 */
 
         /* --- NAVIGATION BAR CSS --- */
         .navbar { position: fixed; top: 0; left: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: rgba(249, 250, 251, 0.9); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 1000; box-sizing: border-box; border-bottom: 1px solid rgba(0,0,0,0.05); transition: all 0.3s ease; }
@@ -154,6 +148,11 @@
         <p>{{ project.business_overview | safe}}</p>
         {% endif %}
         
+        {% if project.Overview %}
+        <h3>Overview</h3>
+        <p>{{ project.Overview | safe}}</p>
+        {% endif %}
+
         {% if project.problem %}
         <h3>Problem Identified</h3>
         <p>{{ project.problem | safe}}</p>
@@ -190,13 +189,13 @@
         {% endif %}
 
         {% if project.approach %}
-        <h3>My Approach & Tools Used</h3>
+        <h3>My Approach</h3>
         <p>{{ project.approach | safe}}</p>
         {% endif %}
 
         {% if project.results %}
         <h3>Results</h3>
-        <p><strong>{{ project.results }}</strong></p>
+        <p>{{ project.results | safe}}</p>
         {% endif %}
     
 <div style="text-align: center; width: 100%; margin-top: 60px; margin-bottom: 20px;">
