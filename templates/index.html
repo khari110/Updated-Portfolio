@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masahir Abbas - Ad Performance Analyst</title>
+    <meta name="description" content="Boost your ad performance with Masahir Abbas. Ad Performance Analyst focused on data-driven marketing, campaign auditing, and high-conversion ad strategies.">
+    <link rel="icon" type="image/jpeg" href="{{ url_for('static', filename='masahir-abbas-favicon.jpeg') }}">
+   
+    <style>
+        
+        :root {
+            --primary-color: #3B82F6; 
+            --secondary-color: #111827; 
+            --light-bg: #F9FAFB; 
+            --text-dark: #1F2937; 
+            --text-light: #F3F4F6; 
+        }
+
+        html { 
+            scroll-behavior: smooth; 
+            scroll-padding-top: 30px; 
+        }
+        body { 
+            font-family: 'Inter', system-ui, -apple-system, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            line-height: 1.6; 
+            color: var(--text-dark); 
+            
+            /* 🚨 TEXT COPY HONE SE ROKNE KE LIYE YEH LINES ADD KAREIN 🚨 */
+            -webkit-user-select: none; /* Safari aur Chrome ke liye */
+            -ms-user-select: none; /* Internet Explorer/Edge ke liye */
+            user-select: none; /* Standard tareeqa */
+        }
+        a { text-decoration: none; color: inherit; transition: color 0.3s ease; }
+
+        img {
+            image-rendering: auto;
+            image-rendering: -webkit-optimize-contrast; 
+            shape-rendering: geometricPrecision;
+        }
+
+        /* Navbar ke liye scroll margin add kiya gaya hai */
+        section { padding: 80px max(20px, calc((100% - 1200px) / 2)); }
+
+        h1, h2, h3 { font-weight: 700; margin-bottom: 1rem; }
+        h2 { text-align: center; font-size: 2.25rem; margin-bottom: 3rem; }
+        
+        .btn {
+            display: inline-block; padding: 12px 32px; background-color: var(--primary-color);
+            color: white; font-weight: 600; border-radius: 6px; border: none;
+            cursor: pointer; transition: background-color 0.3s ease;
+        }
+        .btn:hover { background-color: #2563EB; }
+
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- NAVIGATION BAR --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+            padding: 20px 5%;
+            background: rgba(249, 250, 251, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-sizing: border-box;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(17, 24, 39, 0.90);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 15px 5%;
+        }
+
+        .nav-container {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: center; 
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 30px;
+        }
+
+        .nav-left, .nav-right {
+            flex: 1;
+            display: flex;
+        }
+        .nav-left { justify-content: flex-end; } 
+        .nav-right { justify-content: flex-start; } 
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            text-decoration: none;
+            letter-spacing: 1px;
+            margin: 0 40px; 
+            flex-shrink: 0;
+        }
+
+        .nav-links li a {
+            color: var(--secondary-color);
+            font-weight: 600;
+            font-size: 1rem;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        .navbar.scrolled .nav-links li a { color: var(--text-light); }
+
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+        .nav-links li a:hover::after { width: 100%; }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--secondary-color);
+            transition: all 0.3s ease;
+        }
+        .navbar.scrolled .hamburger span { background-color: var(--text-light); }
+
+        .mobile-logo { display: none; }
+
+        /* Mobile View: Logo Left par chala jayega, baqi links menu mein */
+        @media (max-width: 900px) { 
+            .mobile-logo { display: block; margin: 0; }
+            .desktop-logo { display: none; }
+            .hamburger { display: flex; }
+            
+            .nav-container {
+                position: absolute;
+                top: 100%;
+                left: -100%;
+                width: 100%;
+                background: rgba(17, 24, 39, 0.98);
+                flex-direction: column;
+                text-align: center;
+                padding: 20px 0;
+                transition: left 0.3s ease;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            }
+            .nav-container.active { left: 0; }
+            
+            .nav-links { flex-direction: column; width: 100%; gap: 20px; padding: 10px 0; }
+            .nav-left, .nav-right { flex-direction: column; }
+            .nav-links li a { color: var(--text-light); font-size: 1.2rem; }
+        }
+        
+        /* INTRO */
+        #intro { background-color: var(--light-bg); padding-top: 100px; padding-bottom: 80px; }
+        .intro-content { display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 50px; text-align: left; }
+        .intro-text { flex: 1; }
+        
+        #intro h1 { font-size: 3rem; color: var(--secondary-color); max-width: 800px; opacity: 0; animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        #intro p { font-size: 1.25rem; color: #4B5563; max-width: 600px; opacity: 0; animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; }
+        .intro-text .btn { opacity: 0; animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards; }
+        
+        .profile-img-placeholder { width: 350px; height: 350px; background-color: #E5E7EB; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #9CA3AF; border: 4px solid var(--primary-color); overflow: hidden; }
+
+        /* ABOUT ME */
+        #about { 
+            background-color: var(--secondary-color); 
+            color: var(--text-light); 
+            text-align: center; 
+            padding-top: 40px;    
+            padding-bottom: 50px; 
+        }
+        #about h2 { color: rgb(247, 247, 247); margin-top: 0; }
+        /* --- PROBLEMS I SOLVE SECTION --- */
+        #services {
+            background-color: var(--light-bg);
+            text-align: center;
+            padding-top: 40px;
+            padding-bottom: 100px;
+        }
+        #services h2 { color: var(--secondary-color); margin-bottom: 10px; }
+        #services .subtitle { font-size: 1.125rem; max-width: 750px; margin: 0 auto 60px auto; color: #4B5563; }
+
+        .problems-list {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .problem-box {
+    background-color: #FFFFFF;
+    border-radius: 14px;
+    padding: 28px 36px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border: 1px solid rgba(0,0,0,0.05);
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    cursor: pointer; /* Indicates the box is clickable */
+}
+
+        .problem-question {
+    font-size: 1.1rem; /* Reduced slightly from 1.2rem */
+    font-weight: 600; /* Changed from 700 to 600 for a semi-bold, cleaner look */
+    color: var(--secondary-color);
+    margin: 0; 
+    padding-right: 40px;
+    line-height: 1.4;
+}
+
+        .problem-question::after {
+    content: '+';
+    position: absolute;
+    top: 26px;
+    right: 32px;
+    color: var(--primary-color);
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1;
+    transition: transform 0.3s ease; /* Animates the icon rotation */
+}
+
+.problem-box.active .problem-question::after {
+    transform: rotate(45deg); 
+}
+
+        .problem-answer {
+    font-size: 1rem;
+    color: #4B5563;
+    line-height: 1.65;
+    /* Hide by default for accordion effect */
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    margin: 0;
+    transition: max-height 0.4s ease, opacity 0.4s ease, margin-top 0.4s ease;
+}
+
+.problem-box.active .problem-answer {
+    max-height: 200px; /* Adjust if your text exceeds this height */
+    opacity: 1;
+    margin-top: 15px; 
+}    
+
+.problems-cta {
+            margin-top: 50px;
+        }
+
+        .problems-cta p {
+    font-size: 1.4rem; /* Size yahan barha diya gaya hai */
+    color: var(--secondary-color);
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+
+        @media (max-width: 600px) {
+            .problem-box { padding: 22px 24px; }
+            .problem-question { font-size: 1.05rem; padding-right: 30px; }
+            .problem-question::after { top: 22px; right: 22px; font-size: 1.4rem; }
+        }
+
+        
+        /* PROJECTS */
+        #projects { background-color: var(--secondary-color); color: var(--text-light); }
+        #projects h2 { color: white; }
+        #projects .card { background-color: #1F2937; border: 1px solid rgba(255,255,255,0.1); }
+        #projects .card-content h3 { color: white; }
+
+        /* --- TABS SECTION --- */
+        #education-and-interests { background-color: var(--light-bg); }
+        .tabs-container { max-width: 800px; margin: 0 auto; }
+        .tab-buttons { display: flex; gap: 10px; margin-bottom: 30px; background: white; padding: 6px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .tab-btn { flex: 1; padding: 15px; text-align: center; border: none; background: transparent; font-weight: 600; font-size: 1.1rem; color: #6B7280; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .tab-btn:hover { color: var(--secondary-color); }
+        .tab-btn.active { background: var(--secondary-color); color: white; box-shadow: 0 4px 6px rgba(17, 24, 39, 0.3); }
+        .tab-content { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .tab-content.active { display: block; }
+        .timeline-item { background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); border-left: 4px solid var(--secondary-color); }
+        .timeline-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 10px;}
+        .timeline-header h3 { margin: 0; color: var(--secondary-color); }
+        .timeline-badge { background: #eff6ff; color: var(--primary-color); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* GRIDS, CARDS & SLIDER */
+        #testimonials { background-color: var(--light-bg); }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 400px)); justify-content: center; gap: 30px; }
+        
+        .card { background-color: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); transition: transform 0.3s ease; border: 1px solid rgba(0,0,0,0.05); }
+        .card:hover { transform: translateY(-5px); border-color: var(--primary-color); }
+
+        .card-img-placeholder { height: 210px; background-color: #fff; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid #E5E7EB; }
+        .card-img-placeholder img { width: 100%; height: 100%; object-fit: contain; padding: 10px; } 
+        .card-content { padding: 24px; }
+        .card-content h3 { margin-top: 0; color: var(--secondary-color); }
+        
+        .slider-wrapper { position: relative; max-width: 1000px; margin: 0 auto; display: flex; align-items: center; }
+        .slider-track { display: flex; gap: 30px; overflow-x: auto; scroll-snap-type: x mandatory; -ms-overflow-style: none; scrollbar-width: none; width: 100%; padding: 20px 5px; }
+        .slider-track::-webkit-scrollbar { display: none; } 
+        .slider-track .card { flex: 0 0 calc(33.333% - 20px); scroll-snap-align: start; min-width: 260px; }
+        
+        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: var(--secondary-color); color: white; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; z-index: 10; font-size: 1.5rem; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.3s ease; }
+        .slider-btn:hover { background: #374151; transform: translateY(-50%) scale(1.05); }
+        #prevBtn { left: -72px; }
+        #nextBtn { right: -72px; }
+        
+        @media (max-width: 768px) {
+            .slider-track .card { flex: 0 0 100%; } 
+            #prevBtn { left: 0px;}
+            #nextBtn { right: 0px; }
+
+            .intro-content { flex-direction: column-reverse; text-align: center; gap: 30px; }
+            .profile-img-placeholder { width: 250px; height: 250px; flex-shrink: 0; margin: 0 auto; }
+            #intro h1 { font-size: 2.2rem; }
+        }
+
+        /* CERTIFICATIONS */
+        #certifications { background-color: var(--secondary-color); color: var(--text-light); }
+        #certifications h2 { color: white; }
+        #certifications .card { background-color: #1F2937; border: 1px solid rgba(255,255,255,0.1); }
+        #certifications .card-content h3 { color: white; }
+        #certifications .card-img-placeholder { border-bottom: 1px solid rgba(255,255,255,0.1); }
+        #certifications .slider-btn { background: #374151; border: 1px solid rgba(255,255,255,0.1); }
+        #certifications .slider-btn:hover { background: var(--primary-color); }
+
+
+        /* 🚨 CLIENT IMAGE CSS 🚨 */
+        .client-img {
+            width: 60px; /* Tasweer ki chaurai */
+            height: 60px; /* Tasweer ki lambai */
+            border-radius: 50%; /* Tasweer ko mukammal gol (round) karne ke liye */
+            object-fit: cover; /* Agar tasweer square na ho toh usay stretch hone se bachata hai */
+            border: 2px solid #3B82F6; /* (Optional) Blue color ka khoobsoorat border */
+            flex-shrink: 0; /* Tasweer ko chota hone se rokta hai */
+        }
+        /*Testimonials*/
+        /* 🚨 AUTO-SCROLL TESTIMONIALS CSS (Half-Slided Layout) 🚨 */
+        .testimonial-slider-wrapper { 
+            position: relative; 
+            max-width: 100%; /* 👈 800px ki jagah 100% kar diya taake sides par jagah bane */
+            margin: 0 auto; 
+            overflow: hidden; 
+        }
+        
+        .testimonial-slider-track { 
+            display: flex; 
+            gap: 30px; 
+            overflow-x: auto; 
+            scroll-snap-type: x mandatory; 
+            -ms-overflow-style: none; 
+            scrollbar-width: none; 
+            padding: 20px 0; 
+        }
+        
+        .testimonial-slider-track::-webkit-scrollbar { display: none; } 
+        
+        .testimonial-slider-track .testimonial-card {
+    flex: 0 0 85%; 
+    max-width: 450px; /* Desktop par size thora kam kiya taake square fit lagay */
+    aspect-ratio: 1 / 1; /* Yeh line card ko perfect square banati hai */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Text aur image ko square ke center mein rakhega */
+    scroll-snap-align: center; 
+    box-sizing: border-box;
+    opacity: 0.5; 
+    transition: opacity 0.4s ease;
+}
+
+        /* Jo card screen ke center mein hoga (active hoga), wo mukammal roshan ho jayega */
+        .testimonial-slider-track .testimonial-card:hover,
+        .testimonial-slider-track .testimonial-card:focus-within {
+            opacity: 1;
+        }
+        .testimonial-card { background-color: white; padding: 40px 50px; border-radius: 16px; box-shadow: 0 10px 30px -5px rgba(0,0,0,0.08); }
+        .testimonial-card p { font-size: 1.25rem; font-style: italic; color: #4B5563; line-height: 1.8; }
+        .client-info { display: flex; align-items: center; margin-top: 30px; }
+        .client-img-placeholder { width: 60px; height: 60px; background-color: #E5E7EB; border-radius: 50%; margin-right: 15px; }
+        
+        /* FOOTER & CONTACT */
+        footer { background-color: var(--secondary-color); color: var(--text-light); padding: 80px 20px; }
+        .footer-container { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; }
+        .footer-section.contact-wrapper { flex: 1 1 425px; max-width: 520px; } 
+        .footer-section.social-wrapper { flex: 1 1 350px; max-width: 450px; display: flex; } 
+        
+        .quick-message-card, .contact-info-card { background-color: #1e293b; padding: 30px; border-radius: 16px; border: 1px solid #334155; box-shadow: 0 15px 35px rgba(0,0,0,0.2); width: 100%; box-sizing: border-box; }
+        .contact-info-card { display: flex; flex-direction: column; justify-content: flex-start; height:fit-content; }
+
+        .qm-title { text-align: center; color: white; margin-top: 0; margin-bottom: 20px; font-size: 1.5rem; font-weight: 700; }
+        .get-in-touch { text-align: center; color: white; margin-top: 0; margin-bottom: 20px; font-size: 1.5rem; font-weight: 700; }
+        .qm-row { display: flex; gap: 15px; }
+        .qm-row .qm-group { flex: 1; }
+        .qm-group { margin-bottom: 15px; text-align: left; }
+        .qm-group label { display: block; color: #E2E8F0; font-size: 0.9rem; font-weight: 600; margin-bottom: 6px; }
+        .qm-group input, .qm-group textarea { width: 100%; padding: 12px 15px; background-color: #334155; border: 1px solid #475569; color: white; border-radius: 8px; font-family: inherit; font-size: 0.95rem; box-sizing: border-box; transition: border-color 0.3s; }
+        .qm-group input:focus, .qm-group textarea:focus { outline: none; border-color: var(--primary-color); }
+        .qm-group textarea { resize: vertical; height: 100px; } 
+        
+        .qm-btn { width: 100%; background-color: #2563EB; color: white; font-weight: 600; font-size: 1rem; padding: 14px; border: none; border-radius: 8px; cursor: pointer; transition: background-color 0.3s; margin-top: 5px; }
+        .qm-btn:hover { background-color: #1D4ED8; }
+        
+        @media (max-width: 600px) { .qm-row { flex-direction: column; gap: 0; } }
+        
+        #formStatus { margin-top: 15px; font-weight: 600; display: none; text-align: center;}
+        .status-success { color: #10B981; }
+        .status-error { color: #EF4444; }
+        .status-loading { color: #9CA3AF; }
+
+        /* GET IN TOUCH LIST STYLES */
+        .contact-list { list-style: none; padding: 0; margin: 0; }
+        .contact-list li { margin-bottom: 23px; }
+        .contact-list li:last-child { margin-bottom: 0; }
+        .contact-list a { display: flex; align-items: center; gap: 15px; color: #E2E8F0; text-decoration: none; font-size: 1.05rem; transition: color 0.3s ease; }
+        .contact-list a:hover { color: var(--primary-color); }
+        .contact-list svg { width: 22px; height: 22px; fill: var(--primary-color); flex-shrink: 0; }
+        
+        /* --- NUMBERS METRICS CARD --- */
+        .footer-section.social-wrapper { flex-direction: column; gap: 24px; }
+        .metrics-card { background-color: #1e293b; padding: 15px 30px; border-radius: 16px; border: 1px solid #334155; box-shadow: 0 15px 35px rgba(0,0,0,0.2); width: 100%; box-sizing: border-box; text-align: center; }
+        .metrics-title { color: white; margin-top: 0; margin-bottom: 20px; font-size: 1.25rem; font-weight: 700; }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+        .stat-item { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px 10px; background: rgba(255, 255, 255, 0.03); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); transition: transform 0.3s ease, border-color 0.3s ease; }
+        .stat-item:hover { transform: translateY(-5px); border-color: rgba(59, 130, 246, 0.4); background: rgba(59, 130, 246, 0.05); }
+        .stat-number { font-size: 1.6rem; font-weight: 800; color: var(--primary-color); margin-bottom: 4px; line-height: 1; }
+        .stat-label { font-size: 0.8rem; color: #94A3B8; font-weight: 500; line-height: 1.4; text-transform: uppercase; letter-spacing: 0.5px; }
+        @media (max-width: 400px) { .stats-grid { grid-template-columns: 1fr; } }
+
+        /* 🚨 WHATSAPP FLOATING BUTTON 🚨 */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25D366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        /* 🚨 IS BLOCK KO PURANE WALE SE REPLACE KAREIN 🚨 */
+        .whatsapp-float:hover {
+            background-color: #3ae374; /* Lighter, more vibrant green on hover */
+            transform: translateY(-5px);
+            box-shadow: 0px 6px 15px rgba(0,0,0,0.4);
+        }
+
+        /* 🚨 ISKE FORAN BAAD YE NEECHAY WALA CODE ADD KAREIN (Pulse element ke liye) 🚨 */
+        .whatsapp-float::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: inherit;
+            border-radius: 50%;
+            z-index: -1;
+            animation: pulse-wa 2s infinite;
+        }
+        .whatsapp-float svg {
+            width: 35px;
+            height: 35px;
+            fill: white;
+        }
+        @media (max-width: 768px) {
+            .whatsapp-float {
+                width: 55px;
+                height: 55px;
+                bottom: 25px;
+                right: 25px;
+            }
+            .whatsapp-float svg {
+                width: 32px;
+                height: 32px;
+            }
+        }
+
+        /* 🚨 SCROLL TO TOP BUTTON STYLES 🚨 */
+        #scrollTopBtn {
+            position: fixed;
+            width: 45px;
+            height: 45px;
+            bottom: 90px; /* Positioned above the WhatsApp button */
+            right: 28px;
+            background-color: var(--secondary-color);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            color: var(--text-light); /* Light gray icon color */
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.5);
+            z-index: 1000;
+            cursor: pointer;
+            transition: all 0.4s ease-in-out;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px) scale(0.8); /* Entrance/Exit state animation */
+        }
+
+        #scrollTopBtn.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1); /* Visible state animation */
+        }
+
+        #scrollTopBtn:hover {
+            color: var(--primary-color);
+            background-color: var(--secondary-color); /* Thematic dark gray on hover */ 
+            transform: translateY(-5px);/* Lift animation on hover */
+            box-shadow: 0px 6px 15px rgba(0,0,0,0.4);
+        }
+
+        #scrollTopBtn svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        /* 📱 Mobile Responsiveness for the new button 🚨 */
+        @media (max-width: 768px) {
+            #scrollTopBtn {
+                width: 45px;
+                height: 45px;
+                bottom: 90px; /* Adjusting gap for smaller screens */
+                right: 29px; /* Alignment with other fixed elements */
+            }
+            #scrollTopBtn svg {
+                width: 24px;
+                height: 24px;
+            }
+        }
+
+        @keyframes pulse-wa {
+            0% {
+                transform: scale(1);
+                opacity: 0.6;
+            }
+            40% {
+                transform: scale(1.35);
+                opacity: 0;
+            }
+            100% {
+                /* Baqi 60% time delay rahega (koi animation nahi hogi) */
+                transform: scale(1);
+                opacity: 0;
+            }
+        }
+
+
+/* 🚨 JO TEXT COPY KARWANA HO, USKE LIYE YEH CLASS HAI 🚨 */
+        .copyable-text {
+            -webkit-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+
+
+    </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Masahir Abbas",
+  "url": "https://masahirabbas.online",
+  "jobTitle": "AI Practitioner & Performance Marketer",
+  "sameAs": [
+    "https://www.linkedin.com/in/masahir-abbas",
+    "https://wa.me/923015048456",
+    "https://wa.me/923397721214",
+    "https://www.instagram.com/masahir_abbas/",
+    "https://www.facebook.com/syedmasahir"
+  ]
+}
+</script>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <a href="#" onclick="closeMenu()" class="nav-logo mobile-logo">HOME</a>
+        
+        <div class="nav-container" id="navContainer">
+            <ul class="nav-links nav-left">
+                <li><a href="#about" onclick="toggleMenu()">About</a></li>
+                <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
+                <li><a href="#education-and-interests" onclick="toggleMenu()">Education</a></li>
+            </ul>
+
+            <a href="#" onclick="closeMenu()" class="nav-logo desktop-logo">HOME</a>
+            
+            <ul class="nav-links nav-right">
+                <li><a href="#certifications" onclick="toggleMenu()">Certificates</a></li>                
+                <li><a href="#testimonials" onclick="toggleMenu()">Testimonials</a></li>
+                <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+   <section id="intro">
+        <div class="intro-content">
+            <div class="intro-text">
+                <h1>Masahir Abbas | Ad Performance Analyst | Scaling ROI with AI</h1>
+                <p class="copyable-text">Maximizing business ROI through Algorithmic Optimization and data-backed performance insights.</p>
+                <br>
+                <a href="#contact" class="btn">Get a Free Audit</a>
+            </div>
+            
+            <div class="profile-img-placeholder" style="border: none; background: none;">
+                <img src="/static/masahir-abbas-ai-practitioner.jpg" alt="Masahir Abbas, an AI Practitioner and Performance Marketing Expert specializing in Ad Performance Analysis, posing professionally with an approachable demeanor." style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 4px solid var(--primary-color);">
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <p class="copyable-text">I help businesses build more effective advertising systems through performance marketing, structured testing, and data-driven optimization. By combining Meta Ads, creative performance analysis, data analytics, and AI-powered tools, I turn advertising data into actionable insights and more efficient marketing workflows.</p>
+        <br>
+        <a href="#contact" class="btn">Let's Talk</a>
+    </section>
+
+    <section id="services">
+        <h2>Problems I Solve</h2>
+        <p class="subtitle copyable-text">I leverage AI and emerging technologies to solve Practical Business and Digital Marketing problems</p>
+        <div class="problems-list">
+
+            <div class="problem-box">
+                <h3 class="problem-question">Not sure why your ads aren't performing?</h3>
+                <p class="problem-answer copyable-text">I build custom LLM-powered analysis pipelines that analyze your creatives, targeting, messaging, and competitive landscape to find where performance is leaking.</p>
+            </div>
+
+            <div class="problem-box">
+                <h3 class="problem-question">Your marketing workflow is too manual?</h3>
+                <p class="problem-answer copyable-text">I use AI agents and automation to streamline research, reporting, content workflows, and repetitive marketing tasks.</p>
+            </div>
+
+            <div class="problem-box">
+                <h3 class="problem-question">Wasting hours manually researching competitors and market trends?</h3>
+                <p class="problem-answer copyable-text">I build custom LLM-powered scraping and analysis pipelines that extract competitor ad copies, customer sentiment, and audience friction points in minutes. The system automatically structures this data into validated messaging angles and high-converting hooks, reducing multi-day research cycles into instant, automated intelligence feeds.</p>
+            </div>
+
+            <div class="problem-box">
+                <h3 class="problem-question">You want to use AI but don't know where to start?</h3>
+                <p class="problem-answer copyable-text">I help identify practical AI opportunities within your marketing processes and turn them into usable technology solutions.</p>
+            </div>
+
+        </div>
+
+        <div class="problems-cta">
+            <p class="copyable-text">Sound like your situation?</p>
+            <a href="#contact" class="btn">Let's Discuss</a>
+        </div>
+    </section>
+
+
+    <section id="projects">
+        <h2>Featured Projects</h2>
+        <div class="grid-container">
+            <div class="card">
+                <div class="card-content">
+                    <h3>Home Decor Product</h3>
+                    <p>Build a visual-first ad campaign highlighting room transformation using LED decor products.</p>
+                    <a href="{{ url_for('case_study', project_id='home-decor') }}" style="color: var(--primary-color);">View Case Study &rarr;</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <h3>Gym Lead Generation</h3>
+                    <p>Designed a local lead generation campaign focused on a free trial offer to attract new members</p>
+                    <a href="{{ url_for('case_study', project_id='gym-lead') }}" style="color: var(--primary-color);">View Case Study &rarr;</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <h3>Customer Churn Prediction (AI)</h3>
+                    <p>Created a Machine Learning model to predict Customer Churn with 82.5% accuracy using scikit-learn and Exploratory Data Analysis</p>
+                    <a href="{{ url_for('case_study', project_id='customer-churn') }}" style="color: var(--primary-color);">View Case Study &rarr;</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-content">
+                    <h3>Meta Ad Creative Analyzer (AI)</h3>
+                    <p>Built an AI evaluation tool that scores ad creatives for launch readiness and provides actionable recommendations to fix visual and copy weaknesses before ad spend.</p>
+                    <a href="{{ url_for('case_study', project_id='ecommerce-sales') }}" style="color: var(--primary-color);">View Case Study &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education-and-interests">
+        <h2>Academic Background & Core Interests</h2>
+        <div class="tabs-container">
+            
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="switchTab(event, 'tab-education')">Education & Courses</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab-interests')">Interests</button>
+            </div>
+
+            <div id="tab-education" class="tab-content active">
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3>Social Media Strategy</h3>
+                        <span class="timeline-badge">Specialization</span>
+                    </div>
+                    <p class="copyable-text" style="color: var(--primary-color); font-weight: 600; margin-bottom: 10px;">Meta</p>
+                    <p class="copyable-text">Developed practical expertise in Advertising, Content Strategy, Audience Engagement, Ad Creative optimization, and Data-Driven Social Media strategies through Meta-certified training.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3>BS Computer Science</h3>
+                        <span class="timeline-badge">Ongoing</span>
+                    </div>
+                    <p class="copyable-text" style="color: var(--primary-color); font-weight: 600; margin-bottom: 10px;">Allama Iqbal Open University</p>
+                    <p class="copyable-text">Currently completing my Bachelors Degree in CS, focusing on comprehensive study of Algorithms and AI alongside core fundamentals in Software Engineering and E-commerce technologies.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3>Artificial Intelligence</h3>
+                        <span class="timeline-badge">Core Domain</span>
+                    </div>
+                    <p class="copyable-text" style="color: var(--primary-color); font-weight: 600; margin-bottom: 10px;">Xeven Skills</p>
+                    <p class="copyable-text">Engineered self-optimizing algorithmic models for automated data processing and intelligence.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3>Data Analysis</h3>
+                        <span class="timeline-badge">Foundation</span>
+                    </div>
+                    <p class="copyable-text" style="color: var(--primary-color); font-weight: 600; margin-bottom: 10px;">Xeven Skills</p>
+                    <p class="copyable-text">Completed Data Analysis coursework to identify complex data patterns.</p>
+                </div>
+            </div> 
+            
+            <div id="tab-interests" class="tab-content">
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3>Leadership & Entrepreneurship</h3>
+                    </div>
+                    <p class="copyable-text">Exploring Entrepreneurship, Leadership Development, Strategic Thinking, and Business Innovation with a focus on building scalable marketing, advertising, and technology-driven businesses.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3>Agentic AI</h3>
+                    </div>
+                    <p class="copyable-text">Exploring Agentic AI to implement autonomous Agents and advanced process automation.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="certifications">
+        <h2>Certifications</h2>
+        
+        <div class="slider-wrapper">
+            <button id="prevBtn" class="slider-btn">&#10094;</button>
+            
+            <div class="slider-track" id="certSlider">
+                <div class="card">
+                    <div class="card-img-placeholder"><img src="{{ url_for('static', filename='AI_for_Data_Analysis.png') }}" alt="Masahir Abbas has completed AI for Data Analysis certificate from Google"></div>
+                    <div class="card-content">
+                        <h3>AI for Data Analysis</h3>
+                        <p>Google</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img-placeholder"><img src="{{ url_for('static', filename='Social_Media_Management.png') }}" alt="Masahir Abbas got Social Media Management Certificate from Meta"></div>
+                    <div class="card-content">
+                        <h3>Social Media Management</h3>
+                        <p>Meta</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img-placeholder"><img src="{{ url_for('static', filename='improving_performance_via_ad_creative.png') }}" alt="Masahir Abbas got Google AI Specialization certificate"></div>
+                    <div class="card-content">
+                        <h3>Ad Creative Optimization</h3>
+                        <p>Meta</p>
+                    </div>
+                </div>
+
+                 <div class="card">
+                    <div class="card-img-placeholder"><img src="{{ url_for('static', filename='Advertising_with_Meta.png') }}" alt="Meta Social Media Marketing and Advertising Certification [Masahir Abbas]"></div>
+                    <div class="card-content">
+                        <h3>Advertising with Meta</h3>
+                        <p>Meta</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img-placeholder"><img src="{{ url_for('static', filename='brand_safety.png') }}" alt="Masahir Abbas got Google AI Specialization certificate"></div>
+                    <div class="card-content">
+                        <h3>Brand Safety</h3>
+                        <p>Meta</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img-placeholder"><img src="{{ url_for('static', filename='Google_AI_Specialization.png') }}" alt="Masahir Abbas got Google AI Specialization certificate"></div>
+                    <div class="card-content">
+                        <h3>AI Specialization</h3>
+                        <p>Google</p>
+                    </div>
+                </div>
+               
+                <div class="card">
+                    <div class="card-img-placeholder"><img src="/static/AI_Practitioner.png" alt="AWS Certified AI Practitioner - Professional Certification [Masahir Abbas]"></div>
+                    <div class="card-content">
+                        <h3>AWS Certified AI Practitioner</h3>
+                        <p>Pearson</p>
+                    </div>
+                </div>
+            </div>
+            
+            <button id="nextBtn" class="slider-btn">&#10095;</button>
+        </div>
+    </section>
+    
+    <section id="testimonials">
+        <h2>Industry Feedback on performance Analysis</h2>
+        
+        <div class="testimonial-slider-wrapper">
+            <div class="testimonial-slider-track" id="testSlider">
+                
+                <div class="testimonial-card">
+                    <p>"Very Well Observstion. Thankyou Masahir Abbas"</p>
+                    
+                    <div class="client-info" style="display: flex; align-items: center; gap: 15px; margin-top: 20px;">
+                        
+                        <img src="{{ url_for('static', filename='ny212_pizza_img.png') }}" alt="Masahir Abbas got positive review from Syed Kamal, Marketing MAanager at NY212 Pizza" class="client-img">
+                        
+                        <div>
+                            <h3 style="margin: 0; color: var(--secondary-color);">Syed Kamal</h3>
+                            <h5 style="margin: 0; color: var(--secondary-color);">Marketing Manager at NY212 Pizza</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p>"Masahir brings strong analytical thinking and contributes useful ideas, especially in AI, problem-solving and marketing-related discussions. He is proactive in group tasks and handles responsibility well"</p>
+                    
+                    <div class="client-info" style="display: flex; align-items: center; gap: 15px; margin-top: 20px;">
+                        
+                        <img src="{{ url_for('static', filename='amjad_image.png') }}" alt="Muhammad Amjad give review to Masahir Abbas" class="client-img">
+                        
+                        <div>
+                            <h3 style="margin: 0; color: var(--secondary-color);">Muhammad Amjad</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p>"Masahir is committed to continuous improvement. I'd confidently recommend him to anyone seeking a professional with strong AI Capabilities, problem-solving skills and a forward thinking approach to technology"</p>
+                    
+                    <div class="client-info" style="display: flex; align-items: center; gap: 15px; margin-top: 20px;">
+                        
+                        <img src="{{ url_for('static', filename='noor_dawood_image.jpeg') }}" alt="Masahir got positive review from Noor Dawood Shah" class="client-img">
+                        
+                        <div>
+                            <h3 style="margin: 0; color: var(--secondary-color);">Noor Dawood Shah</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p>"Very well Analysis Masahir Abbas. I appreciate your suggestions"</p>
+                    
+                    <div class="client-info" style="display: flex; align-items: center; gap: 15px; margin-top: 20px;">
+                        
+                        <img src="{{ url_for('static', filename='sevva_restaurant.jpg') }}" alt="Masahir got positive review from Zunair Ishfaq, Social Media Manager at Sevva Restraunt" class="client-img">
+                        
+                        <div>
+                            <h3 style="margin: 0; color: var(--secondary-color);">Zunair Ishfaque</h3>
+                            <h5 style="margin: 0; color: var(--secondary-color);">Social Media Manager at Sevva Restaurant</h5>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <h2 style="color: white; margin-top: -40px; margin-bottom: 40px;">Contact</h2>
+        
+        <div class="footer-container">
+            <div class="footer-section contact-wrapper">
+                <div class="quick-message-card">
+                    <h3 class="qm-title">Quick Message</h3>
+                    <form id="leadForm">
+                        <div class="qm-row">
+                            <div class="qm-group">
+                                <label>Name *</label>
+                                <input type="text" id="leadName" placeholder="Your full name" required>
+                            </div>
+                            <div class="qm-group">
+                                <label>Email *</label>
+                                <input type="email" id="leadEmail" placeholder="your.email@example.com" required>
+                            </div>
+                        </div>
+                        <div class="qm-group">
+                            <label>Subject *</label>
+                            <input type="text" id="leadPhone" placeholder="Write your subject" required>
+                        </div>
+                        <div class="qm-group">
+                            <label>Message *</label>
+                            <textarea id="leadMessage" placeholder="Your message..." required></textarea>
+                        </div>
+                        <button type="submit" class="qm-btn" id="submitBtn">Submit Message</button>
+                    </form>
+                    <div id="formStatus"></div>
+                </div>
+            </div>
+            
+           <div class="footer-section social-wrapper">
+                
+                <div class="metrics-card">
+                    <h3 class="metrics-title">Why Choose Me?</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-number counter" data-target="3" data-suffix="+">0</span>
+                            <span class="stat-label">Years of<br>Experience</span>
+                        </div>
+
+                        <div class="stat-item">
+                            <span class="stat-number counter" data-target="5" data-suffix="+">0</span>
+                            <span class="stat-label">Successful<br>Projects</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number counter" data-target="12" data-suffix="+">0</span>
+                            <span class="stat-label">Global<br>Certificates</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-info-card">
+                    <h3 class="get-in-touch">Get in Touch</h3>
+                    <ul class="contact-list">
+                        <li>
+                            <a class="copyable-text">
+                                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> 
+                                contact@masahirabbas.online
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.linkedin.com/in/masahir-abbas" target="_blank">
+                                <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg> 
+                                linkedin.com/in/masahir-abbas
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a href="https://wa.me/923397721214" target="_blank" class="copyable-text">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> 
+                                +92 339 7721 214
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://facebook.com/masahirbukhari" target="_blank">
+                                <svg viewBox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L16.05 14.96H13.56V21.96A10 10 0 0 0 22 12.06C22 6.53 17.5 2.04 12 2.04Z"/></svg> 
+                                @masahirbukhari
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>   
+            </div>
+          </div>
+    </footer>
+
+    <a href="https://wa.me/923397721214" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+
+    <a href="javascript:void(0);" id="scrollTopBtn" title="Go to top">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 4.4l-7.2 7.2 1.4 1.4 4.8-4.8v11.4h2V8.2l4.8 4.8 1.4-1.4-7.2-7.2z"></path>
+        </svg>
+    </a>
+
+    <script>
+        // --- FORM SUBMIT LOGIC ---
+        document.getElementById('leadForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); 
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const statusDiv = document.getElementById('formStatus');
+            
+            const name = document.getElementById('leadName').value;
+            const email = document.getElementById('leadEmail').value;
+            const phone = document.getElementById('leadPhone').value;
+            const rawMessage = document.getElementById('leadMessage').value;
+
+            const compiledMessage = `Name: ${name}\nSubject: ${phone}\n\nMessage:\n${rawMessage}`;
+
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'Submitting...';
+            statusDiv.style.display = 'block';
+            statusDiv.className = 'status-loading';
+            statusDiv.innerText = 'Establishing secure connection...';
+
+            try {
+                const response = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email, message: compiledMessage }) 
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    statusDiv.className = 'status-success';
+                    statusDiv.innerText = result.message;
+                    document.getElementById('leadForm').reset(); 
+                } else {
+                    statusDiv.className = 'status-error';
+                    statusDiv.innerText = result.message || 'Submitting failed.';
+                }
+            } catch (error) {
+                statusDiv.className = 'status-error';
+                statusDiv.innerText = 'Network error. Could not connect to the server.';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = 'Submit Message';
+                setTimeout(() => { statusDiv.style.display = 'none'; }, 5000);
+            }
+        });
+
+        // --- BULLETPROOF INFINITE SLIDER LOGIC ---
+        const slider = document.getElementById('certSlider');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        let autoScrollTimer;
+
+        const originalCards = Array.from(slider.children);
+        originalCards.forEach(card => {
+            const clone = card.cloneNode(true);
+            slider.appendChild(clone);
+        });
+
+        function getShiftDistance() {
+            const cardWidth = slider.querySelector('.card').clientWidth;
+            return originalCards.length * (cardWidth + 30); 
+        }
+
+        function handleInvisibleReset() {
+            const shiftDistance = getShiftDistance();
+            slider.style.scrollBehavior = 'auto'; 
+
+            if (slider.scrollLeft >= shiftDistance) {
+                slider.scrollLeft -= shiftDistance; 
+            } else if (slider.scrollLeft <= 0) {
+                slider.scrollLeft += shiftDistance; 
+            }
+            slider.offsetHeight; 
+        }
+
+        function startAutoScroll() {
+            clearInterval(autoScrollTimer);
+            autoScrollTimer = setInterval(() => {
+                handleInvisibleReset();
+                const cardWidth = slider.querySelector('.card').clientWidth + 30;
+                slider.scrollBy({ left: cardWidth, behavior: 'smooth' }); 
+            }, 3000);
+        }
+
+        prevBtn.addEventListener('click', () => {
+            clearInterval(autoScrollTimer);
+            handleInvisibleReset();
+            const cardWidth = slider.querySelector('.card').clientWidth + 30;
+            slider.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+            startAutoScroll();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            clearInterval(autoScrollTimer);
+            handleInvisibleReset();
+            const cardWidth = slider.querySelector('.card').clientWidth + 30;
+            slider.scrollBy({ left: cardWidth, behavior: 'smooth' });
+            startAutoScroll();
+        });
+
+        const certSection = document.getElementById('certifications');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    startAutoScroll();
+                } else {
+                    clearInterval(autoScrollTimer);
+                }
+            });
+        }, { threshold: 0.3 }); 
+        observer.observe(certSection);
+
+        slider.addEventListener('mouseenter', () => clearInterval(autoScrollTimer));
+        slider.addEventListener('mouseleave', () => {
+            const rect = certSection.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom >= 0) {
+                startAutoScroll();
+            }
+        });
+
+        // --- TABS TOGGLE LOGIC ---
+        function switchTab(event, tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            event.currentTarget.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+        // --- NUMBER COUNTING ANIMATION ---
+        const numberObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = entry.target.querySelectorAll('.counter');
+                    
+                    counters.forEach(counter => {
+                        const target = +counter.getAttribute('data-target'); 
+                        const suffix = counter.getAttribute('data-suffix'); 
+                        const duration = 2000; 
+                        
+                        let startTimestamp = null;
+                        
+                        const step = (timestamp) => {
+                            if (!startTimestamp) startTimestamp = timestamp;
+                            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                            
+                            const easeOut = progress * (2 - progress);
+                            const currentVal = Math.floor(easeOut * target);
+                            
+                            counter.innerText = currentVal + suffix;
+                            
+                            if (progress < 1) {
+                                window.requestAnimationFrame(step);
+                            } else {
+                                counter.innerText = target + suffix; 
+                            }
+                        };
+                        
+                        window.requestAnimationFrame(step);
+                    });
+                    
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.7 }); 
+
+        const metricsCard = document.querySelector('.metrics-card');
+        if(metricsCard) {
+            numberObserver.observe(metricsCard);
+        }
+        
+        // --- NAVBAR LOGIC ---
+        const navbar = document.getElementById('navbar');
+        const navLinks = document.getElementById('navLinks');
+        // 🚨 New DOM element 🚨
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+        // 1. Scroll effect (navbar change & button visibility)
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            // 🚨 New Logic for Scroll to Top Button Visibility 🚨
+            // Appears after scrolling down 300px
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+        });
+
+        // 🚨 New Click Logic for smooth scroll 🚨
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // --- MOBILE MENU LOGIC ---
+        function toggleMenu() {
+            if(window.innerWidth <= 900) {
+                document.getElementById('navContainer').classList.toggle('active');
+            }
+        }
+
+        function closeMenu() {
+            if(window.innerWidth <= 900) {
+                document.getElementById('navContainer').classList.remove('active');
+            }
+        }
+        
+        
+
+        // --- TESTIMONIAL AUTO-SLIDER (Half-Slided Layout) ---
+        const testSlider = document.getElementById('testSlider');
+        const origTestCards = Array.from(testSlider.children);
+        
+        // 🚨 Cards ko 4 dafa clone kiya taake left/right sides kabhi khali na rahein aur loop chalta rahay
+        for(let i=0; i<4; i++){
+            origTestCards.forEach(card => {
+                const clone = card.cloneNode(true);
+                testSlider.appendChild(clone);
+            });
+        }
+
+        // 🚨 Page load hone par chupke se center wale cards par scroll kar dein, taake shuru mein left side khali na lagay
+        setTimeout(() => {
+            const cardWidth = testSlider.querySelector('.testimonial-card').clientWidth + 30;
+            testSlider.scrollLeft = cardWidth * origTestCards.length;
+            updateCenterCardOpacity();
+        }, 100);
+
+        let testAutoScrollTimer; // Timer ko variable mein save kiya
+
+        // Auto-scroll ka function
+        function startTestAutoScroll() {
+            testAutoScrollTimer = setInterval(() => {
+                const cardWidth = testSlider.querySelector('.testimonial-card').clientWidth + 30;
+                const resetPoint = (origTestCards.length * 3) * cardWidth;
+                
+                if (testSlider.scrollLeft >= resetPoint) {
+                    testSlider.style.scrollBehavior = 'auto';
+                    testSlider.scrollLeft -= (origTestCards.length * cardWidth);
+                    testSlider.offsetHeight; // force reflow
+                }
+                
+                testSlider.style.scrollBehavior = 'smooth';
+                testSlider.scrollBy({ left: cardWidth, behavior: 'smooth' });
+                
+                setTimeout(updateCenterCardOpacity, 400); 
+            }, 6000); // 3500 se 6000 (6 seconds) kar diya gaya hai
+        }
+
+        // Slider start karein
+        startTestAutoScroll();
+
+        // Hover (Computer) aur Touch (Mobile) par swipe rokne ka logic:
+        testSlider.addEventListener('mouseenter', () => clearInterval(testAutoScrollTimer));
+        testSlider.addEventListener('mouseleave', startTestAutoScroll);
+        testSlider.addEventListener('touchstart', () => clearInterval(testAutoScrollTimer));
+        testSlider.addEventListener('touchend', startTestAutoScroll);
+
+        // 🚨 Jo card center mein hai usko 100% show karne wala function
+        function updateCenterCardOpacity() {
+            const cards = testSlider.querySelectorAll('.testimonial-card');
+            const sliderCenter = testSlider.scrollLeft + (testSlider.clientWidth / 2);
+            
+            cards.forEach(card => {
+                const cardCenter = card.offsetLeft + (card.clientWidth / 2);
+                if (Math.abs(sliderCenter - cardCenter) < 100) {
+                    card.style.opacity = '1';
+                } else {
+                    card.style.opacity = '0.5';
+                }
+            });
+        }
+        testSlider.addEventListener('scroll', updateCenterCardOpacity);
+
+        // --- PROBLEM SECTION ACCORDION LOGIC ---
+document.querySelectorAll('.problem-box').forEach(box => {
+    box.addEventListener('click', () => {
+        // Close other open boxes (Optional: remove this if you want multiple open at once)
+        document.querySelectorAll('.problem-box').forEach(otherBox => {
+            if (otherBox !== box) {
+                otherBox.classList.remove('active');
+            }
+        });
+        
+        // Toggle the clicked box
+        box.classList.toggle('active');
+    });
+});
+    </script>
+</body>
+</html>

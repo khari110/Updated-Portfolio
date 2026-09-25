@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpeg" href="{{ url_for('static', filename='masahir-abbas-favicon.jpeg') }}">
+    <title>{{ project.title }} - Case Study</title>
+    <style>
+        body { 
+            font-family: 'Inter', system-ui, -apple-system, sans-serif; 
+            line-height: 1.6; 
+            color: #1F2937; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #FFFFFF; 
+            
+            /* Text copy hone se rokne ke liye (jo main page par bhi hai) */
+            -webkit-user-select: none; 
+            -ms-user-select: none; 
+            user-select: none; 
+        }
+        
+       /* Oopar wala Half-White section */
+        .header-banner {
+            background-color: #F9FAFB; 
+            padding: 140px 20px 60px 20px; /* Padding theek ki hai */
+            border-bottom: 1px solid #F3F4F6; 
+        }
+
+        /* 🚨 Nayi class heading ko darmiyan mein rakhne ke liye 🚨 */
+        .header-banner .container {
+            max-width: 1200px;
+            margin: 0 auto; 
+        }
+
+        .header-banner .tag {
+            font-family: 'Poppins', sans-serif;
+            color: #10203a; 
+            font-weight: 500;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .header-banner h1 {
+            font-weight: 500;
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.2rem; 
+            color: #111827;
+            margin: 0;
+            line-height: 1.2;
+        }
+        
+        /* Neechay wala Full-White section */
+        .content-area { 
+            background-color: #FFFFFF; 
+            padding: 60px 20px 30px 20px; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+        
+        h3 { 
+            font-family: 'Poppins', sans-serif;
+            color: #3B82F6; margin-top: 35px; margin-bottom: 10px; font-size: 1.6rem;}
+        
+        .content-area p { 
+            white-space: pre-wrap; 
+            margin-bottom: 15px;
+            font-size: 1.25rem; 
+        }
+        .content-area > :first-child {
+            margin-top: 0;
+        }
+
+        /* 🚨 BACK BUTTON (Bottom Centered) 🚨 */
+        .back-btn { 
+            display: inline-block; /* Flex ki jagah block kar diya */
+            padding: 12px 25px; 
+            background-color: #111827; 
+            color: #F3F4F6; 
+            text-decoration: none; 
+            border-radius: 7px; 
+            border: 1px solid transparent;
+            font-weight: bold;  
+            transition: all 0.2s ease; 
+        }
+        .back-btn:hover { color: #111827;background-color: #ffffff; border-color: #111827; border-width: 1px; border-style: solid; }
+       
+        .content p { 
+            white-space: pre-wrap; /* Yeh property line breaks ko enable karti hai */
+            margin-bottom: 15px;
+        }
+
+        /* --- NAVIGATION BAR CSS --- */
+        .navbar { position: fixed; top: 0; left: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: rgba(249, 250, 251, 0.9); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 1000; box-sizing: border-box; border-bottom: 1px solid rgba(0,0,0,0.05); transition: all 0.3s ease; }
+        .navbar.scrolled { background: rgba(17, 24, 39, 0.90); border-bottom: 1px solid rgba(255,255,255,0.1); padding: 15px 5%; }
+        .nav-container { display: flex; width: 100%; align-items: center; justify-content: center; }
+        .nav-links { display: flex; list-style: none; margin: 0; padding: 0; gap: 30px; }
+        .nav-left, .nav-right { flex: 1; display: flex; }
+        .nav-left { justify-content: flex-end; } .nav-right { justify-content: flex-start; }
+        
+        .nav-logo { font-size: 1.5rem; font-weight: 800; color: #3B82F6; text-decoration: none; letter-spacing: 1px; margin: 0 40px; flex-shrink: 0; }
+        .nav-links li a { color: #111827; font-weight: 600; font-size: 1rem; position: relative; padding-bottom: 5px; text-decoration: none; }
+        .navbar.scrolled .nav-links li a { color: #F3F4F6; }
+        
+        .nav-links li a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 0; background-color: #3B82F6; transition: width 0.3s ease; }
+        .nav-links li a:hover::after { width: 100%; }
+        
+        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
+        .hamburger span { display: block; width: 25px; height: 3px; background-color: #111827; transition: all 0.3s ease; }
+        .navbar.scrolled .hamburger span { background-color: #F3F4F6; }
+        .mobile-logo { display: none; }
+        
+        @media (max-width: 900px) { 
+            .mobile-logo { display: block; margin: 0; }
+            .desktop-logo { display: none; }
+            .hamburger { display: flex; }
+            .nav-container { position: absolute; top: 100%; left: -100%; width: 100%; background: rgba(17, 24, 39, 0.98); flex-direction: column; text-align: center; padding: 20px 0; transition: left 0.3s ease; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+            .nav-container.active { left: 0; }
+            .nav-links { flex-direction: column; width: 100%; gap: 20px; padding: 10px 0; }
+            .nav-left, .nav-right { flex-direction: column; }
+            .nav-links li a { color: #F3F4F6; font-size: 1.2rem; }
+        }
+ </style>
+</head>
+<body>
+
+
+    <body>
+
+    <div class="header-banner">
+        <div class="container">
+            <span class="tag">Case Study</span>
+            <h1>{{ project.title }}</h1>
+            <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+        </div>
+    </div>
+    
+    <div class="content-area">
+        
+        {% if project.overview %}
+        <h3><strong>Overview:</h3>
+         {{ project.overview | safe}}</p>
+        {% endif %}
+
+        {% if project.business_overview %}
+        <h3>Business Overview</h3>
+        <p>{{ project.business_overview | safe}}</p>
+        {% endif %}
+        
+        {% if project.Overview %}
+        <h3>Overview</h3>
+        <p>{{ project.Overview | safe}}</p>
+        {% endif %}
+
+        {% if project.problem %}
+        <h3>Problem Identified</h3>
+        <p>{{ project.problem | safe}}</p>
+        {% endif %}
+
+        {% if project.target %}
+        <h3>Target</h3>
+        <p>{{ project.target | safe}}</p>
+        {% endif %}
+
+        {% if project.strategy %}
+        <h3>Strategy</h3>
+        <p>{{ project.strategy | safe }}</p>
+        {% endif %}
+
+        {% if project.audience %}
+        <h3>Audience Targeting</h3>
+        <p>{{ project.audience | safe}}</p>
+        {% endif %}
+
+        {% if project.ad_copy %}
+        <h3>Ad Copy</h3>
+        <p>{{ project.ad_copy | safe }}</p> 
+        {% endif %}
+
+        {% if project.creative %}
+        <h3>Creative Idea</h3>
+        <p>{{ project.creative | safe}}</p>
+        {% endif %}
+
+        {% if project.budget %}
+        <h3>Budget Strategy</h3>
+        <p>{{ project.budget | safe}}</p>
+        {% endif %}
+
+        {% if project.approach %}
+        <h3>My Approach</h3>
+        <p>{{ project.approach | safe}}</p>
+        {% endif %}
+
+        {% if project.results %}
+        <h3>Results</h3>
+        <p>{{ project.results | safe}}</p>
+        {% endif %}
+    
+<div style="text-align: center; width: 100%; margin-top: 60px; margin-bottom: 20px;">
+            <a href="{{ url_for('home') }}" class="back-btn">&larr; Back to Portfolio</a>
+        </div>
+
+    </div>
+
+<nav class="navbar" id="navbar">
+        <a href="{{ url_for('home') }}" class="nav-logo mobile-logo">HOME</a>
+        
+        <div class="nav-container" id="navContainer">
+            <ul class="nav-links nav-left">
+                <li><a href="{{ url_for('home') }}#about">About</a></li>
+                <li><a href="{{ url_for('home') }}#projects">Projects</a></li>
+                <li><a href="{{ url_for('home') }}#education-and-interests">Education</a></li>
+            </ul>
+
+            <a href="{{ url_for('home') }}" class="nav-logo desktop-logo">HOME</a>
+            
+            <ul class="nav-links nav-right">
+                <li><a href="{{ url_for('home') }}#certifications">Certificates</a></li>                
+                <li><a href="{{ url_for('home') }}#testimonials">Testimonials</a></li>
+                <li><a href="{{ url_for('home') }}#contact">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <script>
+        const navbar = document.getElementById('navbar');
+        
+        // Scroll karne par Navbar ka color change karega
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu open/close karega
+        function toggleMenu() {
+            if(window.innerWidth <= 900) {
+                document.getElementById('navContainer').classList.toggle('active');
+            }
+        }
+    </script>
+
+</body>
+</html>
