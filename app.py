@@ -95,7 +95,7 @@ Conversion to members: 7-10 new members."""
     },
     "ecommerce-sales": {
         "title": "Meta Ad Creative Analyzer",
-        "business_overview": """<b>AI-Powered Ad Creative Analyzer</b> is a decision-support tool designed to help advertisers evaluate Meta ad creatives before launching them. It analyzes key creative elements, generates an overall score, and provides actionable suggestions to help determine whether a creative is ready for testing or needs refinement.""",
+        "overview": """<b>AI-Powered Ad Creative Analyzer</b> is a decision-support tool designed to help advertisers evaluate Meta ad creatives before launching them. It analyzes key creative elements, generates an overall score, and provides actionable suggestions to help determine whether a creative is ready for testing or needs refinement.""",
         "problem": """Advertisers and media buyers routinely burn budget testing creatives doomed to fail due to subjective guesswork. Without a systematic pre-launch audit framework, weak hooks, ambiguous messaging or cluttered visual hierarchies leak performance early, resulting in low CTRs and poor engagement.""",
         "approach": """<b>Diagnostic Scoring Rubric:</b> Structured a multi-point evaluation system grading visual stopping power, message congruence, value proposition clarity, and call-to-action strength.
 

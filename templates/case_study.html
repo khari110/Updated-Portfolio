@@ -139,9 +139,11 @@
     <div class="content-area">
         
         {% if project.overview %}
-        <h3><strong>Overview:</h3>
-         {{ project.overview | safe}}</p>
+        <h3>Overview</h3>
+        <p>{{ project.overview | safe}}</p>
         {% endif %}
+
+        
 
         {% if project.business_overview %}
         <h3>Business Overview</h3>
@@ -202,7 +204,6 @@
             <a href="{{ url_for('home') }}" class="back-btn">&larr; Back to Portfolio</a>
         </div>
 
-    </div>
 
 <nav class="navbar" id="navbar">
         <a href="{{ url_for('home') }}" class="nav-logo mobile-logo">HOME</a>
