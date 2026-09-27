@@ -1,9 +1,9 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, Response, url_for
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import os
-
+from datetime import datetime
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
 
@@ -93,7 +93,7 @@ Total: 6000 PKR.""",
 Total Leads: 60+ in one week.
 Conversion to members: 7-10 new members."""
     },
-    "ecommerce-sales": {
+    "ad-creative-analyzer": {
         "title": "Meta Ad Creative Analyzer",
         "overview": """<b>AI-Powered Ad Creative Analyzer</b> is a decision-support tool designed to help advertisers evaluate Meta ad creatives before launching them. It analyzes key creative elements, generates an overall score, and provides actionable suggestions to help determine whether a creative is ready for testing or needs refinement.""",
         "problem": """Advertisers and media buyers routinely burn budget testing creatives doomed to fail due to subjective guesswork. Without a systematic pre-launch audit framework, weak hooks, ambiguous messaging or cluttered visual hierarchies leak performance early, resulting in low CTRs and poor engagement.""",
@@ -105,6 +105,40 @@ Conversion to members: 7-10 new members."""
         "results": """The result is a practical <b>AI-powered decision-support system</b> that gives advertisers a structured way to assess creatives before launch. Rather than replacing human judgment, it helps make the creative review process more consistent, data-informed, and actionable."""
     }
 }
+
+#This route generates the sitemap.xml. So Google bots can crawl for case studies and other pages.
+
+@app.route('/sitemap.xml', methods=['GET'])
+def sitemap():
+    base_url = "https://masahirabbas.online"
+    # Static pages
+    pages = [
+        {"loc": f"{base_url}/", "changefreq": "weekly", "priority": "1.0"}
+    ]
+    # Dynamic Case Studies
+    for project_id in projects_data.keys():
+        pages.append({
+            "loc": f"{base_url}/case-study/{project_id}",
+            "changefreq": "monthly",
+            "priority": "0.8"
+        })
+
+    sitemap_xml = ['<?xml version="1.0" encoding="UTF-8"?>']
+    sitemap_xml.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
+    for p in pages:
+        sitemap_xml.append('  <url>')
+        sitemap_xml.append(f'    <loc>{p["loc"]}</loc>')
+        sitemap_xml.append(f'    <changefreq>{p["changefreq"]}</changefreq>')
+        sitemap_xml.append(f'    <priority>{p["priority"]}</priority>')
+        sitemap_xml.append('  </url>')
+    sitemap_xml.append('</urlset>')
+
+    return Response("\n".join(sitemap_xml), mimetype='application/xml')
+
+@app.route('/robots.txt', methods=['GET'])
+def robots():
+    content = "User-agent: *\nAllow: /\nSitemap: https://masahirabbas.online/sitemap.xml"
+    return Response(content, mimetype='text/plain')
 
 #Case Study Route
 @app.route('/case-study/<project_id>', methods=['GET'])

@@ -3,6 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ project.title }} | Masahir Abbas Case Study</title>
+    <meta name="description" content="{{ (project.problem or project.business_overview or '') | striptags | truncate(155) }}">
+    <link rel="canonical" href="https://masahirabbas.online/case-study/{{ request.view_args['project_id'] }}">
+
+    <!-- Open Graph for Social Shares -->
+    <meta property="og:title" content="{{ project.title }} - Case Study">
+    <meta property="og:description" content="{{ (project.business_overview or '') | striptags | truncate(150) }}">
+    <meta property="og:url" content="https://masahirabbas.online/case-study/{{ request.view_args['project_id'] }}">
+    <meta property="og:type" content="article">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/jpeg" href="{{ url_for('static', filename='masahir-abbas-favicon.jpeg') }}">
     <title>{{ project.title }} - Case Study</title>
     <style>
