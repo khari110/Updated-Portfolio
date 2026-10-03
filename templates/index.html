@@ -933,6 +933,17 @@
                 <div class="quick-message-card">
                     <h3 class="qm-title">Quick Message</h3>
                     <form id="leadForm">
+
+                        <div style="position: absolute; left: -9999px; opacity: 0; pointer-events: none;" aria-hidden="true">
+        <label for="leadCompany">Company</label>
+        <input type="text" id="leadCompany" name="company" tabindex="-1" autocomplete="off">
+    </div>
+
+    <div class="qm-row">
+        <div class="qm-group">
+            <label>Name *</label>
+            <input type="text" id="leadName" placeholder="Your full name" required>
+        </div>
                         <div class="qm-row">
                             <div class="qm-group">
                                 <label>Name *</label>
@@ -1025,51 +1036,67 @@
 
     <script>
         // --- FORM SUBMIT LOGIC ---
-        document.getElementById('leadForm').addEventListener('submit', async function(event) {
-            event.preventDefault(); 
-            
-            const submitBtn = document.getElementById('submitBtn');
-            const statusDiv = document.getElementById('formStatus');
-            
-            const name = document.getElementById('leadName').value;
-            const email = document.getElementById('leadEmail').value;
-            const phone = document.getElementById('leadPhone').value;
-            const rawMessage = document.getElementById('leadMessage').value;
+document.getElementById('leadForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+      
+    const submitBtn = document.getElementById('submitBtn');
+    const statusDiv = document.getElementById('formStatus');
+    
+    // Check Honeypot first
+    const honeypot = document.getElementById('leadCompany').value.trim();
+    if (honeypot) {
+        // Silently drop the bot submission and fake a success message
+        submitBtn.disabled = false;
+        statusDiv.style.display = 'block';
+        statusDiv.className = 'status-success';
+        statusDiv.innerText = 'Message sent successfully!';
+        document.getElementById('leadForm').reset();
+        setTimeout(() => { statusDiv.style.display = 'none'; }, 5000);
+        return;
+    }
+     
+    const name = document.getElementById('leadName').value;
+    const email = document.getElementById('leadEmail').value;
+    const phone = document.getElementById('leadPhone').value;
+    const rawMessage = document.getElementById('leadMessage').value;
+    const compiledMessage = `Name: ${name}\nSubject: ${phone}\n\nMessage:\n${rawMessage}`;
 
-            const compiledMessage = `Name: ${name}\nSubject: ${phone}\n\nMessage:\n${rawMessage}`;
+    submitBtn.disabled = true;
+    submitBtn.innerText = 'Submitting...';
+    statusDiv.style.display = 'block';
+    statusDiv.className = 'status-loading';
+    statusDiv.innerText = 'Establishing secure connection...';
 
-            submitBtn.disabled = true;
-            submitBtn.innerText = 'Submitting...';
-            statusDiv.style.display = 'block';
-            statusDiv.className = 'status-loading';
-            statusDiv.innerText = 'Establishing secure connection...';
-
-            try {
-                const response = await fetch('/api/contact', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: email, message: compiledMessage }) 
-                });
-
-                const result = await response.json();
-
-                if (response.ok) {
-                    statusDiv.className = 'status-success';
-                    statusDiv.innerText = result.message;
-                    document.getElementById('leadForm').reset(); 
-                } else {
-                    statusDiv.className = 'status-error';
-                    statusDiv.innerText = result.message || 'Submitting failed.';
-                }
-            } catch (error) {
-                statusDiv.className = 'status-error';
-                statusDiv.innerText = 'Network error. Could not connect to the server.';
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerText = 'Submit Message';
-                setTimeout(() => { statusDiv.style.display = 'none'; }, 5000);
-            }
+    try {
+        const response = await fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                email: email, 
+                message: compiledMessage,
+                company: honeypot // Sent to backend in case bots bypass browser JS
+            }) 
         });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            statusDiv.className = 'status-success';
+            statusDiv.innerText = result.message;
+            document.getElementById('leadForm').reset();
+        } else {
+            statusDiv.className = 'status-error';
+            statusDiv.innerText = result.message || 'Submitting failed.';
+        }
+    } catch (error) {
+        statusDiv.className = 'status-error';
+        statusDiv.innerText = 'Network error. Could not connect to the server.';
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'Submit Message';
+        setTimeout(() => { statusDiv.style.display = 'none'; }, 5000);
+    }
+});
 
         // --- BULLETPROOF INFINITE SLIDER LOGIC ---
         const slider = document.getElementById('certSlider');

@@ -178,7 +178,9 @@ def home():
 
 @app.route('/api/contact', methods=['POST'])
 def submit_contact():
-    data = request.json
+    data = data = request.get_json() or {}
+    if data.get('company'):
+            return jsonify({'message': 'Message sent successfully!'}), 200
     client_email = data.get('email')
     client_problem = data.get('message')
 
