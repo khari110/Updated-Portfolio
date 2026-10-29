@@ -175,7 +175,6 @@ def home():
 # connects with HTML from templates folder
     return render_template('index.html')
 
-
 @app.route('/api/contact', methods=['POST'])
 def submit_contact():
     data = data = request.get_json() or {}
@@ -188,7 +187,6 @@ def submit_contact():
     if not client_email or not client_problem:
         return jsonify({"status": "error", "message": "Email and problem description are required."}), 400
 
-    # --- EMAIL ROUTING LOGIC ---
     try:
         msg = MIMEMultipart()
         msg['From'] = MY_EMAIL
