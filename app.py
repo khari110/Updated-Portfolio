@@ -12,8 +12,8 @@ app = Flask(__name__, template_folder='templates', static_folder='static')
 
 projects_data = {
     "lead-generation-system": {
-        "title": "AI Lead Generation System",
-        "overview": """<b>Lead Generation System</b> is an automation solution designed to help marketing agencies discover potential clients and create personalized outreach emails. It streamlines the lead generation process by collecting prospect information and using AI to generate relevant email messages, reducing the manual effort required for client acquisition.""",
+        "title": "Lead Generation System",
+        "overview": """<b>Lead Generation System</b> is an AI automated solution designed to help marketing agencies discover potential clients and create personalized outreach emails. It streamlines the lead generation process by collecting prospect information and using AI to generate relevant email messages, reducing the manual effort required for client acquisition.""",
         "problem": """Marketing agencies often spend significant time searching for potential clients, gathering business information, and writing individual outreach emails. Manual prospecting can be repetitive, time-consuming, and difficult to scale.
 
 Without an efficient lead generation workflow, agencies may struggle to maintain consistent outreach while focusing on their core marketing activities.""",
