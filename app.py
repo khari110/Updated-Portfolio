@@ -11,54 +11,23 @@ app = Flask(__name__, template_folder='templates', static_folder='static')
 #Configuration
 
 projects_data = {
-    "home-decor": {
-        "title": "Home Decor Product (Sales Campaign)",
-        "business_overview": """Type: Online Home Decor Store
-Product: LED Wall Lamps
-Goal: Increase Online Sales""",
-        "problem": """Low Product Awareness
-No Structure Ad funnel
-Poor engagement on existing posts""",
-        "strategy":"""<b>Funnel:</b>
-Cold Audience > Product Video Ad
-Retarget > View Content, Engagers, Add to Cart
+    "lead-generation-system": {
+        "title": "AI Lead Generation System",
+        "overview": """<b>Lead Generation System</b> is an automation solution designed to help marketing agencies discover potential clients and create personalized outreach emails. It streamlines the lead generation process by collecting prospect information and using AI to generate relevant email messages, reducing the manual effort required for client acquisition.""",
+        "problem": """Marketing agencies often spend significant time searching for potential clients, gathering business information, and writing individual outreach emails. Manual prospecting can be repetitive, time-consuming, and difficult to scale.
 
-<b>Core Idea:</b>
-Sell <b>aesthetic transformation</b>, not just the product
-'People don't buy lamps, they buy the vibe it creates in their home.'""",
-        "audience": """<b>Cold Audience:</b>
-Age: 20-36
-Interests: Home Decor, Interior Design, Aesthetics, IKEA, home styling
-<b>Warm Audience:</b>
-Website Visitors (last 30 days)
-Video Viewers with 50%+ watch-time
-Instagram Engagers (last 30 days)""",
-        "ad_copy": """<b>Headline:</b>
-Transform Your Room Today!
-<b>Primary Text:</b>
-Tired of dull walls? Transform your room in seconds.
-Modern LED wall lamps that instantly upgrade your space.
+Without an efficient lead generation workflow, agencies may struggle to maintain consistent outreach while focusing on their core marketing activities.""",
+        "approach":"""<b>Automated Lead Collection:</b> Developed a workflow to identify and collect potential client leads from relevant sources, helping agencies streamline the prospecting process.
 
-Limited  stock available - Order now and light up your life!""",
-        "creative": """<b>Best format:</b>
-Short video (7-15 seconds)
-<b>Visual Concept:</b>
-Before (Boring wall)
-After (lamp ON, aesthetic lighting, cozy vibe)
-Text overlay:
-Before > After
-Instant Room Upgrade """,
-        "budget": """<b>Total Budget:</b>
-10,000 PKR
-<b>Split:</b>
-Cold Traffic: 70%
-Retargeting: 30%
-<b>Optimization Goal:</b>
-Conversions (Purchases)""",
-        "results": """CTR: 2-4%
-CPC: 15-30 PKR
-Conversion Rate: 3-6%
-ROAS: 2.5x-4x"""
+<b>Lead Data Processing:</b> Organized collected prospect information into a usable format, making it easier to review and prepare leads for outreach.
+
+<b>Email Personalization:</b> Integrated AI to generate personalized cold emails based on available information about each prospect, making the outreach more relevant than generic email templates.
+
+<b>End-to-End Workflow Automation:</b> Connected lead collection and email generation into a unified process to reduce repetitive manual tasks and make prospecting more efficient.'""",
+
+        "results": """An <b>Automated Lead Generation System</b> that combines prospect collection with AI-powered email personalization in one workflow. It helps marketing agencies reduce manual prospecting effort, prepare personalized outreach more efficiently, and establish a more structured approach to client acquisition.
+
+Rather than guaranteeing conversions, the system supports the outreach process by helping agencies spend less time on repetitive tasks and more time reviewing leads, building relationships, and developing business opportunities."""
     },
     "customer-churn": {
         "title": "Customer Churn Prediction",
@@ -67,31 +36,26 @@ ROAS: 2.5x-4x"""
         "approach": "Used Data Cleaning, Feature Engineering and Data Visualisation for EDA and trained ML Model using Logistic Regression.",
         "results": "Predicted Customer Churn with <b>82.5% Accuracy.</b>"
     },
-    "gym-lead": {
-        "title": "Gym Lead Generation Campaign",
-        "business_overview": "Offered 1 Week Free Trial to attract members to a local Gym and increase Monthly Memberships.",
-        "problem": "Gym has no consistent leads and they have no structured funnel.",
-        "strategy": """Funnel: Cold audience > Lead form > WhatsApp follow-up.
-Approach: Strong offer (free trial), Local trageting""",
-        "audience": """Location: 5-8 km radius
-Age: 18-40
-Interests: Fitness, Health, weight loss, BodyBuilding""",
-        "ad_copy": """<b>Headline:</b>
-Start your Fitness Journey Today        
+    "social-media-posts- pipeline": {
+        "title": "Social Media Posts Pipeline",
+        "overview": "<b>Social Media Posts Pipeline</b> is an automation workflow designed to streamline social media content creation and publishing. The system aims to reduce repetitive manual work by connecting content research, post preparation, and publishing into a structured pipeline that helps maintain a consistent social media presence.",
+        "problem": """Managing social media consistently requires more than writing captions. Businesses and marketing agencies must identify relevant topics, research audience interests, develop useful content, prepare posts, and publish them regularly.
 
-<b>Primary Text:</b>
-Want to get fit but don't know where to start?
-Try our gym FREE for 7 days.
-No commitment, No pressure. Just results!
-Limited slots available this week. Sign up now!""",
-        "creative": """Gym Interior + people working out.
-Text overlay: 7-Day Free Trial""",
-        "budget": """Daily Budget: 1000 PKR.
-Duration: 7 days.
-Total: 6000 PKR.""",
-        "results": """Cost per Lead: 80-140 PKR.
-Total Leads: 60+ in one week.
-Conversion to members: 7-10 new members."""
+Handling these tasks manually can be time-consuming for small teams and makes it difficult to maintain a consistent posting schedule. Repetitive content and generic posts can also reduce the relevance of social media content to the target audience.""",
+        "approach": """<b>Workflow Automation:</b> Designed and developed an automation pipeline using n8n to connect social media content tasks into a structured workflow, reducing the need for repetitive manual operations.
+
+<b>Content Research & Preparation:</b> Integrated AI in content research and preparation approach to identify relevant topics and audience problems, and supporting the preparation of social media posts, making the process more efficient and scalable.
+
+<b>AI-Generated Visuals:</b> Incorporated AI image generation to create visuals aligned with the generated post content, connecting text and visual production within the same workflow.
+
+<b>Email-Based Approval System:</b> Implemented an email approval step before publishing, allowing the content to be reviewed and approved or rejected by a human rather than automatically publishing every generated post.
+
+<b>Google Sheets Content Tracking:</b> Integrated Google Sheets to record published topics, maintain a content history, and help prevent repetitive posts by tracking subjects that have already been covered.
+
+<b>Structured Publishing Workflow:</b> Connected the different stages into a structured process that supports content preparation, human review, and publishing while reducing repetitive manual tasks.""",
+        "results": """The result is an Automated Social Media Content Pipeline that provides a structured approach to researching, preparing, and managing social media posts. 
+
+The system is designed to support the content production process rather than replace human judgment, allowing users to review content and maintain control over what gets published."""
     },
     "ad-creative-analyzer": {
         "title": "Meta Ad Creative Analyzer",
