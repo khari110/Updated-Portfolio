@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, Response, url_for
+from flask import Flask, render_template, request, jsonify, Response, url_for, abort
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -113,7 +113,13 @@ def case_study(project_id):
     # Agar project URL theek hai toh page dikhayein, warna 404 Not Found
     if project:
         return render_template('case_study.html', project=project)
-    return "Project Not Found", 404
+    abort(404)
+
+
+# Custom 404 page (matches the portfolio theme)
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
 
 
 #Receiving Email and its App Password 
