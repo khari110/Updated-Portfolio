@@ -39,13 +39,10 @@
             0% { opacity: 0; transform: translateY(30px); }
             100% { opacity: 1; transform: translateY(0); }
         }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
 
         /* --- 404 SECTION --- */
         .error-section {
+            position: relative;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -57,6 +54,46 @@
 
         .error-content { max-width: 640px; }
 
+        /* BACK ARROW (top-left corner) - sirf arrow clickable hai, text nahi */
+        .back-corner {
+            position: absolute;
+            top: 100px;
+            left: 0;
+            right: 0;
+            max-width: 1240px; /* case study page ke left alignment se match */
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: left;
+        }
+        .back-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .back-arrow {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background-color: transparent;
+            color: #111827;
+            text-decoration: none;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        .back-arrow svg { width: 22px; height: 22px; display: block; }
+        .back-arrow:hover,
+        .back-arrow:focus-visible { background-color: #E5E7EB; color: #111827; outline: none; }
+        .back-text {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 1.1rem;
+            color: #111827;
+            background: transparent;
+            pointer-events: none; /* text clickable nahi */
+        }
+
         .error-code {
             font-family: 'Poppins', sans-serif;
             font-weight: 700;
@@ -65,8 +102,6 @@
             margin: 0 0 10px 0;
             color: var(--primary-color);
             letter-spacing: 4px;
-            opacity: 0;
-            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards, float 4s ease-in-out 0.8s infinite;
         }
         .error-code .zero {
             color: var(--secondary-color);
@@ -160,6 +195,15 @@
     </nav>
 
     <main class="error-section">
+        <div class="back-corner">
+            <div class="back-row">
+                <a href="{{ url_for('home') }}" class="back-arrow" aria-label="Back to Home">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                </a>
+                <span class="back-text">Back</span>
+            </div>
+        </div>
+
         <div class="error-content">
             <div class="error-code">4<span class="zero">0</span>4</div>
             <h1>Page Not Found</h1>
