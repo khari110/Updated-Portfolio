@@ -1,0 +1,13 @@
+diff --git a/app.py b/app.py
+index 9c676a3..66c56d8 100644
+--- a/app.py
++++ b/app.py
+@@ -36,7 +36,7 @@ Rather than guaranteeing conversions, the system supports the outreach process b
+         "approach": "Used Data Cleaning, Feature Engineering and Data Visualisation for EDA and trained ML Model using Logistic Regression.",
+         "results": "Predicted Customer Churn with <b>82.5% Accuracy.</b>"
+     },
+-    "social-media-posts- pipeline": {
++    "social-media-posts-pipeline": {
+         "title": "Social Media Posts Pipeline",
+         "overview": "<b>Social Media Posts Pipeline</b> is an automation workflow designed to streamline social media content creation and publishing. The system aims to reduce repetitive manual work by connecting content research, post preparation, and publishing into a structured pipeline that helps maintain a consistent social media presence.",
+         "problem": """Managing social media consistently requires more than writing captions. Businesses and marketing agencies must identify relevant topics, research audience interests, develop useful content, prepare posts, and publish them regularly.
