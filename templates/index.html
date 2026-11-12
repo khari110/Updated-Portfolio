@@ -312,6 +312,15 @@
         .timeline-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 10px;}
         .timeline-header h3 { margin: 0; color: var(--secondary-color); }
         .timeline-badge { background: #eff6ff; color: var(--primary-color); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; }
+
+        /* Compact timeline row (title + org on left, period/role boxes on right, level with the heading) */
+        .timeline-item-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px 12px; padding: 20px 25px; }
+        .timeline-info h3 { margin: 0; color: var(--secondary-color); }
+        .timeline-info p { margin: 4px 0 0; color: var(--primary-color); font-weight: 600; }
+        .timeline-tags { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; height: 30px; }
+        .timeline-tags .timeline-badge { padding: 3px 10px; border-radius: 6px; font-size: 0.72rem; line-height: 1.4; }
+        .timeline-tags .timeline-badge-outline { background: white; border: 1px solid #bfdbfe; padding: 2px 9px; }
+        @media (max-width: 600px) { .timeline-tags { height: auto; } }
         
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -780,17 +789,29 @@
             </div> 
             
             <div id="tab-interests-and-experiences" class="tab-content">
-                <div class="timeline-item">
-                    <div class="timeline-header">
+                <div class="timeline-item timeline-item-row">
+                    <div class="timeline-info">
                         <h3>Ambassador</h3>
+                        <p class="copyable-text">Connected Pakistan CPC-X</p>
                     </div>
-                    <p class="copyable-text" style="color: var(--primary-color); font-weight: 600; margin-bottom: 10px;">Connected Pakistan CPC-X</p>
+                    <div class="timeline-tags">
+                        <!-- EDIT: apna time period yahan likhein -->
+                        <span class="timeline-badge">Octuber 2026 – Present</span>
+                        <!-- EDIT: apna relevant role yahan likhein -->
+                        <span class="timeline-badge timeline-badge-outline">Community Outreach</span>
+                    </div>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-header">
+                <div class="timeline-item timeline-item-row">
+                    <div class="timeline-info">
                         <h3>Ambassador</h3>
+                        <p class="copyable-text">NextGen Youth Pakistan</p>
                     </div>
-                    <p class="copyable-text" style="color: var(--primary-color); font-weight: 600; margin-bottom: 10px;">NextGen Youth Pakistan</p>
+                    <div class="timeline-tags">
+                        <!-- EDIT: apna time period yahan likhein -->
+                        <span class="timeline-badge">September 2026 – Present</span>
+                        <!-- EDIT: apna relevant role yahan likhein -->
+                        <span class="timeline-badge timeline-badge-outline">Organizatoinal Leadership</span>
+                    </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-header">
