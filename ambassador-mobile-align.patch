@@ -1,8 +1,8 @@
 diff --git a/templates/index.html b/templates/index.html
-index 3dd2aa1..6a056c0 100644
+index 3dd2aa1..fca894b 100644
 --- a/templates/index.html
 +++ b/templates/index.html
-@@ -316,11 +316,16 @@
+@@ -316,11 +316,18 @@
          /* Compact timeline row (title + org on left, period/role boxes on right, level with the heading) */
          .timeline-item-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px 12px; padding: 20px 25px; }
          .timeline-info h3 { margin: 0; color: var(--secondary-color); }
@@ -14,9 +14,11 @@ index 3dd2aa1..6a056c0 100644
          .timeline-tags .timeline-badge-outline { background: white; border: 1px solid #bfdbfe; padding: 2px 9px; }
 -        @media (max-width: 600px) { .timeline-tags { height: auto; } }
 +        @media (max-width: 600px) {
-+            .timeline-item-row { flex-wrap: nowrap; align-items: flex-start; gap: 8px; }
++            .timeline-item-row { flex-wrap: nowrap; align-items: flex-start; gap: 6px; padding: 20px 18px; }
 +            .timeline-info { flex: 0 0 auto; }
-+            .timeline-tags { height: auto; flex: 1 1 0; min-width: 0; justify-content: flex-end; margin-top: 3px; gap: 6px; }
++            .timeline-tags { height: auto; flex: 1 1 0; min-width: 0; flex-wrap: nowrap; justify-content: flex-end; margin-top: 3px; gap: 5px; }
++            .timeline-tags .timeline-badge { font-size: clamp(0.58rem, 2.7vw, 0.72rem); padding: 3px 7px; white-space: nowrap; }
++            .timeline-tags .timeline-badge-outline { padding: 2px 6px; }
 +        }
          
          @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
