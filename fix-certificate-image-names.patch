@@ -1,0 +1,30 @@
+diff --git a/static/Agentic AI for Leaders.png b/static/Agentic_AI_for_Leaders.png
+similarity index 100%
+rename from static/Agentic AI for Leaders.png
+rename to static/Agentic_AI_for_Leaders.png
+diff --git a/static/Fundamentals of Social Media Advertising.png b/static/Fundamentals_of_Social_Media_Advertising.png
+similarity index 100%
+rename from static/Fundamentals of Social Media Advertising.png
+rename to static/Fundamentals_of_Social_Media_Advertising.png
+diff --git a/templates/index.html b/templates/index.html
+index 0ab161d..3dd2aa1 100644
+--- a/templates/index.html
++++ b/templates/index.html
+@@ -853,7 +853,7 @@
+                     </div>
+                 </div>
+                 <div class="card">
+-                    <div class="card-img-placeholder"><img src="{{ url_for('static', filename='Agentic AI for Leaders.png') }}" alt="Masahir Abbas got Agentic AI and AI Agents' primer for Leaders Certificate from Vanderbilt University"></div>
++                    <div class="card-img-placeholder"><img src="{{ url_for('static', filename='Agentic_AI_for_Leaders.png') }}" alt="Masahir Abbas got Agentic AI and AI Agents' primer for Leaders Certificate from Vanderbilt University"></div>
+                     <div class="card-content">
+                         <h3>Agentic AI for Leaders</h3>
+                         <div class="cert-meta">
+@@ -909,7 +909,7 @@
+                 </div>
+                
+                 <div class="card">
+-                    <div class="card-img-placeholder"><img src="/static/Fundamentals of Social Media Advertising.png" alt="Fundamentals of Social Media Advertising - Professional Certification [Masahir Abbas]"></div>
++                    <div class="card-img-placeholder"><img src="/static/Fundamentals_of_Social_Media_Advertising.png" alt="Fundamentals of Social Media Advertising - Professional Certification [Masahir Abbas]"></div>
+                     <div class="card-content">
+                         <h3>Fundamentals of Social Media Advertising</h3>
+                         <div class="cert-meta">
